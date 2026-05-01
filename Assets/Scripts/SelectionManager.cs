@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 
 public class SelectionManager : MonoBehaviour
 {
+    #region Materials
+
     [Header("Node Materials")]
     [SerializeField] public Material normalNodeMaterial;
     [SerializeField] public Material sourceNodeMaterial;
@@ -10,13 +12,26 @@ public class SelectionManager : MonoBehaviour
     [SerializeField] public Material visitedNodeMaterial;
     [SerializeField] public Material pathNodeMaterial;
 
+    [Header("Bipartite Node Materials")]
+    [SerializeField] public Material bipartiteGroupAMaterial;
+    [SerializeField] public Material bipartiteGroupBMaterial;
+
     [Header("Edge Materials")]
     [SerializeField] public Material normalEdgeMaterial;
     [SerializeField] public Material visitedEdgeMaterial;
     [SerializeField] public Material pathEdgeMaterial;
+    [SerializeField] public Material conflictEdgeMaterial;
+
+    #endregion
+
+    #region State
 
     public GraphNode SourceNode      { get; private set; }
     public GraphNode DestinationNode { get; private set; }
+
+    #endregion
+
+    #region Input
 
     private void Update()
     {
@@ -48,4 +63,6 @@ public class SelectionManager : MonoBehaviour
             node.SetMaterial(destinationNodeMaterial);
         }
     }
+
+    #endregion
 }

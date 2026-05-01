@@ -2,6 +2,8 @@ using System.Collections.Generic;
 
 public static class Pathfinder
 {
+    #region Data Structures
+
     public struct TraversalStep
     {
         public GraphEdge Edge;
@@ -13,6 +15,25 @@ public static class Pathfinder
         public List<TraversalStep> TraversalSteps;
         public List<TraversalStep> PathSteps;
     }
+
+    public struct BipartiteStep
+    {
+        public GraphNode Node;
+        public int Group; // 0 = GroupA, 1 = GroupB
+    }
+
+    public struct BipartiteResult
+    {
+        public bool IsBipartite;
+        public List<GraphNode> GroupA;
+        public List<GraphNode> GroupB;
+        public List<BipartiteStep> Steps;
+        public GraphEdge ConflictEdge; // the edge that proves non-bipartiteness
+    }
+
+    #endregion
+
+    #region BFS / DFS
 
     public static PathfinderResult BFS(GraphNode source, GraphNode destination)
     {
@@ -87,6 +108,79 @@ public static class Pathfinder
         };
     }
 
+    #endregion
+
+    #region Bipartite Check
+
+    // BFS 2-coloring — disconnected graph'lar için tüm nodeları gezer
+    public static BipartiteResult CheckBipartite(IEnumerable<GraphNode> allNodes)
+    {
+        var color        = new Dictionary<GraphNode, int>();
+        var groupA       = new List<GraphNode>();
+        var groupB       = new List<GraphNode>();
+        var steps        = new List<BipartiteStep>();
+        bool isBipartite = true;
+
+        GraphEdge conflictEdge = null;
+
+        foreach (var start in allNodes)
+        {
+            if (color.ContainsKey(start)) continue;
+
+            color[start] = 0;
+            steps.Add(new BipartiteStep { Node = start, Group = 0 });
+            var queue = new Queue<GraphNode>();
+            queue.Enqueue(start);
+
+            while (queue.Count > 0 && isBipartite)
+            {
+                var current = queue.Dequeue();
+                foreach (var edge in current.edges)
+                {
+                    var neighbor = edge.GetOtherNode(current);
+                    if (neighbor == null) continue;
+
+                    if (!color.ContainsKey(neighbor))
+                    {
+                        color[neighbor] = 1 - color[current];
+                        steps.Add(new BipartiteStep { Node = neighbor, Group = color[neighbor] });
+                        queue.Enqueue(neighbor);
+                    }
+                    else if (color[neighbor] == color[current])
+                    {
+                        conflictEdge = edge;
+                        isBipartite  = false;
+                        break;
+                    }
+                }
+            }
+
+            if (!isBipartite) break;
+        }
+
+        if (isBipartite)
+        {
+            foreach (var kvp in color)
+            {
+                if (kvp.Value == 0) groupA.Add(kvp.Key);
+                else                groupB.Add(kvp.Key);
+            }
+        }
+
+        return new BipartiteResult
+        {
+            IsBipartite  = isBipartite,
+            GroupA       = groupA,
+            GroupB       = groupB,
+            Steps        = steps,
+            ConflictEdge = conflictEdge
+        };
+    }
+
+    #endregion
+
+    #region Helpers
+
     private static List<TraversalStep> ReconstructPath(
         GraphNode source, GraphNode destination,
         Dictionary<GraphNode, (GraphEdge edge, GraphNode from)> parent)
@@ -104,4 +198,6 @@ public static class Pathfinder
         path.Reverse();
         return path;
     }
+
+    #endregion
 }
