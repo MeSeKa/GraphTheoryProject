@@ -6,11 +6,14 @@ using UnityEngine.UI;
 public class GraphManager : MonoBehaviour
 {
     [SerializeField] SelectionManager selectionManager;
+    [SerializeField] CameraFramer cameraFramer;
+    [SerializeField] GraphGenerator graphGenerator;
 
     [Header("UI Buttons")]
     [SerializeField] Button bfsButton;
     [SerializeField] Button dfsButton;
     [SerializeField] Button startButton;
+    [SerializeField] Button generateButton;
 
     [Header("Traversal")]
     [SerializeField] float stepDelay = 0.5f;
@@ -25,6 +28,11 @@ public class GraphManager : MonoBehaviour
         bfsButton.onClick.AddListener(() => SelectedAlgorithm = Algorithm.BFS);
         dfsButton.onClick.AddListener(() => SelectedAlgorithm = Algorithm.DFS);
         startButton.onClick.AddListener(OnStartClicked);
+        generateButton.onClick.AddListener(() =>
+        {
+            graphGenerator.GenerateGraph();
+            cameraFramer.FrameAllNodes();
+        });
     }
 
     private void OnStartClicked()
