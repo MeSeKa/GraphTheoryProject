@@ -37,7 +37,7 @@ public class HexBridge : MonoBehaviour
 
     public void SetMaterial(Material mat)
     {
-        if (bridgeRenderer) bridgeRenderer.material = mat;
+        if (bridgeRenderer != null && mat != null) bridgeRenderer.material = mat;
     }
 
     public void RestoreTypeMaterial()

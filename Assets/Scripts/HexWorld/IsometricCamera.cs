@@ -35,10 +35,10 @@ public class IsometricCamera : MonoBehaviour
         float halfFov  = cam.fieldOfView * 0.5f * Mathf.Deg2Rad;
         float dist     = (maxRadius + padding) / Mathf.Tan(halfFov);
 
-        Quaternion rot = Quaternion.Euler(pitch, yaw, 0f);
-        Vector3    back = rot * Vector3.back;
+        Quaternion rot     = Quaternion.Euler(pitch, yaw, 0f);
+        Vector3    forward = rot * Vector3.forward;
 
-        cam.transform.position = centroid - back * dist;
+        cam.transform.position = centroid - forward * dist;
         cam.transform.rotation = rot;
     }
 
