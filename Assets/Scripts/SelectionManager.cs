@@ -22,12 +22,29 @@ public class SelectionManager : MonoBehaviour
     [SerializeField] public Material pathEdgeMaterial;
     [SerializeField] public Material conflictEdgeMaterial;
 
+    [Header("Edge Type Materials")]
+    [SerializeField] public Material ropeEdgeMaterial;
+    [SerializeField] public Material woodEdgeMaterial;
+    [SerializeField] public Material stoneEdgeMaterial;
+
+    [Header("Feedback")]
+    [SerializeField] public Material errorEdgeMaterial;
+
+    public Material GetEdgeTypeMaterial(EdgeType type) => type switch
+    {
+        EdgeType.Rope  => ropeEdgeMaterial,
+        EdgeType.Wood  => woodEdgeMaterial,
+        EdgeType.Stone => stoneEdgeMaterial,
+        _              => normalEdgeMaterial
+    };
+
     #endregion
 
     #region State
 
     public GraphNode SourceNode      { get; private set; }
     public GraphNode DestinationNode { get; private set; }
+    public bool SelectionEnabled     { get; set; } = true;
 
     #endregion
 
@@ -36,7 +53,7 @@ public class SelectionManager : MonoBehaviour
     private void Update()
     {
         var mouse = Mouse.current;
-        if (mouse == null) return;
+        if (mouse == null || !SelectionEnabled) return;
 
         if (mouse.leftButton.wasPressedThisFrame)  TrySelect(isSource: true);
         if (mouse.rightButton.wasPressedThisFrame) TrySelect(isSource: false);

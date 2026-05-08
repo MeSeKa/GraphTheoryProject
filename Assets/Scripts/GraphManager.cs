@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class GraphManager : MonoBehaviour
@@ -12,14 +13,24 @@ public class GraphManager : MonoBehaviour
     [SerializeField] SelectionManager selectionManager;
     [SerializeField] CameraFramer     cameraFramer;
     [SerializeField] GraphGenerator   graphGenerator;
+    [SerializeField] ToolManager      toolManager;
+    [SerializeField] LevelManager     levelManager;
 
-    [Header("UI Buttons")]
+    [Header("UI Panels")]
+    [SerializeField] GameObject mainButtonPanel;
+
+    [Header("UI Buttons — Main Panel")]
+    [SerializeField] Button gameModeButton;
     [SerializeField] Button bfsButton;
     [SerializeField] Button dfsButton;
     [SerializeField] Button startButton;
     [SerializeField] Button generateButton;
     [SerializeField] Button generateBipartiteButton;
     [SerializeField] Button bipartiteCheckButton;
+    [SerializeField] Button cutEdgeButton;
+
+    [Header("UI Buttons — Cut Edge Mode")]
+    [SerializeField] Button exitCutEdgeModeButton;
 
     [Header("UI Text")]
     [SerializeField] TMP_Text statusText;
@@ -36,6 +47,8 @@ public class GraphManager : MonoBehaviour
     public Algorithm SelectedAlgorithm { get; private set; } = Algorithm.BFS;
 
     private Coroutine _activeCoroutine;
+    private bool      _cutEdgeModeActive;
+    private bool      _gameModeActive;
 
     #endregion
 
@@ -43,6 +56,8 @@ public class GraphManager : MonoBehaviour
 
     private void Start()
     {
+        gameModeButton?.onClick.AddListener(() => levelManager.ShowLevelSelect());
+
         bfsButton.onClick.AddListener(() =>
         {
             SelectedAlgorithm = Algorithm.BFS;
@@ -72,6 +87,10 @@ public class GraphManager : MonoBehaviour
 
         bipartiteCheckButton.onClick.AddListener(OnBipartiteCheckClicked);
 
+        cutEdgeButton.onClick.AddListener(EnterCutEdgeMode);
+        exitCutEdgeModeButton.onClick.AddListener(ExitCutEdgeMode);
+
+        exitCutEdgeModeButton.gameObject.SetActive(false);
         SetStatus("Algorithm: BFS");
     }
 
@@ -90,8 +109,6 @@ public class GraphManager : MonoBehaviour
             return;
         }
 
-        if (_activeCoroutine != null) StopCoroutine(_activeCoroutine);
-
         ResetGraph();
         source.SetMaterial(selectionManager.sourceNodeMaterial);
         destination.SetMaterial(selectionManager.destinationNodeMaterial);
@@ -100,7 +117,7 @@ public class GraphManager : MonoBehaviour
             ? Pathfinder.BFS(source, destination)
             : Pathfinder.DFS(source, destination);
 
-        _activeCoroutine = StartCoroutine(RunTraversal(result, source, destination));
+        BeginCoroutine(RunTraversal(result, source, destination));
     }
 
     private void ResetGraph()
@@ -136,7 +153,7 @@ public class GraphManager : MonoBehaviour
         if (result.PathSteps.Count == 0)
         {
             SetStatus($"{SelectedAlgorithm} | Path not found.");
-            _activeCoroutine = null;
+            EndCoroutine();
             yield break;
         }
 
@@ -144,7 +161,7 @@ public class GraphManager : MonoBehaviour
         yield return StartCoroutine(ShowPath(result.PathSteps, source, destination));
 
         SetStatus($"{SelectedAlgorithm} | Done. Path length: {result.PathSteps.Count} edge(s).");
-        _activeCoroutine = null;
+        EndCoroutine();
     }
 
     private IEnumerator ShowPath(List<Pathfinder.TraversalStep> pathSteps, GraphNode source, GraphNode destination)
@@ -171,13 +188,11 @@ public class GraphManager : MonoBehaviour
 
     private void OnBipartiteCheckClicked()
     {
-        if (_activeCoroutine != null) StopCoroutine(_activeCoroutine);
-
         ResetGraph();
         var allNodes = FindObjectsByType<GraphNode>(FindObjectsSortMode.None);
         var result   = Pathfinder.CheckBipartite(allNodes);
 
-        _activeCoroutine = StartCoroutine(RunBipartiteCheck(result));
+        BeginCoroutine(RunBipartiteCheck(result));
     }
 
     private IEnumerator RunBipartiteCheck(Pathfinder.BipartiteResult result)
@@ -202,7 +217,7 @@ public class GraphManager : MonoBehaviour
 
         if (result.IsBipartite)
         {
-            SetStatus($"Bipartite | Graph is bipartite — rearranging nodes...");
+            SetStatus("Bipartite | Graph is bipartite — rearranging nodes...");
             yield return StartCoroutine(AnimateBipartiteLayout(result.GroupA, result.GroupB));
             SetStatus($"Bipartite | Graph is bipartite. Group A: {result.GroupA.Count} node(s), Group B: {result.GroupB.Count} node(s).");
         }
@@ -217,7 +232,7 @@ public class GraphManager : MonoBehaviour
             SetStatus("Bipartite | Graph is NOT bipartite. Same-color nodes are connected — odd cycle detected.");
         }
 
-        _activeCoroutine = null;
+        EndCoroutine();
     }
 
     private IEnumerator AnimateBipartiteLayout(List<GraphNode> groupA, List<GraphNode> groupB)
@@ -254,7 +269,127 @@ public class GraphManager : MonoBehaviour
 
     #endregion
 
+    #region Game Mode
+
+    public void EnterGameMode()
+    {
+        _gameModeActive = true;
+        selectionManager.SelectionEnabled = false;
+        mainButtonPanel.SetActive(false);
+    }
+
+    public void ExitGameMode()
+    {
+        _gameModeActive = false;
+        selectionManager.SelectionEnabled = true;
+        mainButtonPanel.SetActive(true);
+        ResetGraph();
+    }
+
+    #endregion
+
+    #region Cut Edge Mode
+
+    private void Update()
+    {
+        if      (_gameModeActive)    HandleGameModeClick();
+        else if (_cutEdgeModeActive) HandleCutEdgeModeClick();
+    }
+
+    private void HandleCutEdgeModeClick()
+    {
+        var mouse = Mouse.current;
+        if (mouse == null || !mouse.leftButton.wasPressedThisFrame) return;
+
+        Ray ray = Camera.main.ScreenPointToRay(mouse.position.ReadValue());
+        if (!Physics.Raycast(ray, out RaycastHit hit)) return;
+
+        GraphEdge edge = hit.collider.GetComponent<GraphEdge>();
+        if (edge != null) CutEdge(edge);
+    }
+
+    private void HandleGameModeClick()
+    {
+        var mouse = Mouse.current;
+        if (mouse == null || !mouse.leftButton.wasPressedThisFrame) return;
+
+        Ray ray = Camera.main.ScreenPointToRay(mouse.position.ReadValue());
+        if (!Physics.Raycast(ray, out RaycastHit hit)) return;
+
+        GraphEdge edge = hit.collider.GetComponent<GraphEdge>();
+        if (edge == null) return;
+
+        if (toolManager.CanCut(edge.edgeType))
+        {
+            CutEdge(edge);
+            levelManager.CheckWinCondition();
+        }
+        else
+        {
+            StartCoroutine(FlashEdgeError(edge));
+            SetStatus($"Wrong tool! {edge.edgeType} edges require {GetRequiredTool(edge.edgeType)}.");
+        }
+    }
+
+    private IEnumerator FlashEdgeError(GraphEdge edge)
+    {
+        edge.SetMaterial(selectionManager.errorEdgeMaterial);
+        yield return new WaitForSeconds(0.4f);
+        if (edge != null) edge.RestoreTypeMaterial();
+    }
+
+    private static ToolType GetRequiredTool(EdgeType edgeType) => edgeType switch
+    {
+        EdgeType.Rope  => ToolType.Scissors,
+        EdgeType.Wood  => ToolType.Axe,
+        EdgeType.Stone => ToolType.Bomb,
+        _              => ToolType.Scissors
+    };
+
+    private void EnterCutEdgeMode()
+    {
+        _cutEdgeModeActive = true;
+        selectionManager.SelectionEnabled = false;
+        mainButtonPanel.SetActive(false);
+        exitCutEdgeModeButton.gameObject.SetActive(true);
+        SetStatus("Cut Edge | Click an edge to remove it.");
+    }
+
+    private void ExitCutEdgeMode()
+    {
+        _cutEdgeModeActive = false;
+        selectionManager.SelectionEnabled = true;
+        mainButtonPanel.SetActive(true);
+        exitCutEdgeModeButton.gameObject.SetActive(false);
+        SetStatus("Cut Edge mode exited.");
+    }
+
+    private void CutEdge(GraphEdge edge)
+    {
+        if (edge.nodeA != null) edge.nodeA.edges.Remove(edge);
+        if (edge.nodeB != null) edge.nodeB.edges.Remove(edge);
+        SetStatus("Cut Edge | Edge removed.");
+        Destroy(edge.gameObject);
+    }
+
+    #endregion
+
     #region Helpers
+
+    // Starts a coroutine and disables cut edge button for its duration
+    private void BeginCoroutine(IEnumerator routine)
+    {
+        if (_activeCoroutine != null) StopCoroutine(_activeCoroutine);
+        cutEdgeButton.interactable = false;
+        _activeCoroutine = StartCoroutine(routine);
+    }
+
+    // Called at the end of each managed coroutine
+    private void EndCoroutine()
+    {
+        _activeCoroutine = null;
+        cutEdgeButton.interactable = true;
+    }
 
     private void SetStatus(string message)
     {

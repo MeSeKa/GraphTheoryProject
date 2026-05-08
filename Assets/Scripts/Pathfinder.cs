@@ -179,6 +179,30 @@ public static class Pathfinder
 
     #endregion
 
+    #region Connectivity
+
+    public static bool IsConnected(GraphNode source, GraphNode destination)
+    {
+        var visited = new HashSet<GraphNode> { source };
+        var queue   = new Queue<GraphNode>();
+        queue.Enqueue(source);
+
+        while (queue.Count > 0)
+        {
+            var node = queue.Dequeue();
+            if (node == destination) return true;
+            foreach (var edge in node.edges)
+            {
+                var neighbor = edge.GetOtherNode(node);
+                if (neighbor != null && visited.Add(neighbor))
+                    queue.Enqueue(neighbor);
+            }
+        }
+        return false;
+    }
+
+    #endregion
+
     #region Helpers
 
     private static List<TraversalStep> ReconstructPath(

@@ -9,12 +9,19 @@ public class GraphGenerator : MonoBehaviour
     [SerializeField] GraphNode nodePrefab;
     [SerializeField] GraphEdge edgePrefab;
 
+    [Header("References")]
+    [SerializeField] SelectionManager selectionManager;
+
     [Header("Random Graph Settings")]
-    [SerializeField] int nodeCount = 8;
-    [SerializeField] float spawnRadius = 5f;
-    [SerializeField] float minNodeDistance = 1.5f;
-    [SerializeField, Range(0f, 1f)] float edgeProbability = 0.4f;
-    [SerializeField] int maxDegree = 4;
+    [SerializeField] public int   nodeCount       = 8;
+    [SerializeField] public float spawnRadius     = 5f;
+    [SerializeField] public float minNodeDistance = 1.5f;
+    [SerializeField, Range(0f, 1f)] public float edgeProbability = 0.4f;
+    [SerializeField] public int maxDegree = 4;
+
+    [Header("Game Mode Settings")]
+    [SerializeField] public EdgeType[] allowedEdgeTypes;
+    [SerializeField] public bool       ensureConnectivity;
 
     [Header("Bipartite Graph Settings")]
     [SerializeField] int bipartiteGroupACount = 4;
@@ -27,11 +34,14 @@ public class GraphGenerator : MonoBehaviour
     #region Random Graph
 
     [ContextMenu("Generate Graph")]
-    public void GenerateGraph()
+    public (GraphNode source, GraphNode destination) GenerateGraph()
     {
         ClearGraph();
         var nodes = SpawnNodes();
         ConnectNodes(nodes);
+        if (ensureConnectivity && nodes.Count >= 2) EnsureConnectivity(nodes);
+        return (nodes.Count > 0 ? nodes[0] : null,
+                nodes.Count > 1 ? nodes[nodes.Count - 1] : null);
     }
 
     private List<GraphNode> SpawnNodes()
@@ -81,7 +91,48 @@ public class GraphGenerator : MonoBehaviour
 
                 GraphEdge edge = Instantiate(edgePrefab, transform);
                 edge.Setup(nodes[i], nodes[j]);
+                AssignEdgeType(edge);
             }
+        }
+    }
+
+    private void AssignEdgeType(GraphEdge edge)
+    {
+        if (selectionManager == null || allowedEdgeTypes == null || allowedEdgeTypes.Length == 0) return;
+        EdgeType type = allowedEdgeTypes[Random.Range(0, allowedEdgeTypes.Length)];
+        edge.AssignType(type, selectionManager.GetEdgeTypeMaterial(type));
+    }
+
+    private void EnsureConnectivity(List<GraphNode> nodes)
+    {
+        var connected = new HashSet<GraphNode> { nodes[0] };
+        var remaining = new HashSet<GraphNode>(nodes);
+        remaining.Remove(nodes[0]);
+
+        while (remaining.Count > 0)
+        {
+            GraphNode bestC = null, bestR = null;
+            float bestDist = float.MaxValue;
+
+            foreach (var c in connected)
+            {
+                foreach (var r in remaining)
+                {
+                    float d = Vector3.Distance(c.transform.position, r.transform.position);
+                    if (d < bestDist) { bestDist = d; bestC = c; bestR = r; }
+                }
+            }
+
+            bool alreadyLinked = bestR.edges.Exists(e => e.GetOtherNode(bestR) == bestC);
+            if (!alreadyLinked)
+            {
+                GraphEdge edge = Instantiate(edgePrefab, transform);
+                edge.Setup(bestC, bestR);
+                AssignEdgeType(edge);
+            }
+
+            connected.Add(bestR);
+            remaining.Remove(bestR);
         }
     }
 
@@ -146,6 +197,7 @@ public class GraphGenerator : MonoBehaviour
 
                 GraphEdge edge = Instantiate(edgePrefab, transform);
                 edge.Setup(a, b);
+                AssignEdgeType(edge);
             }
         }
     }

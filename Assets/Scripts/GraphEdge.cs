@@ -1,17 +1,21 @@
 using DG.Tweening;
 using UnityEngine;
 
+public enum EdgeType { Rope, Wood, Stone }
+
 public class GraphEdge : MonoBehaviour
 {
     #region Fields
 
     [SerializeField] public GraphNode nodeA;
     [SerializeField] public GraphNode nodeB;
+    [SerializeField] public EdgeType  edgeType;
 
     [SerializeField] Renderer edgeRenderer;
 
     private const float AnimDuration = 0.4f;
-    private Vector3 _baseScale;
+    private Vector3  _baseScale;
+    private Material _typeMaterial;
 
     #endregion
 
@@ -52,6 +56,18 @@ public class GraphEdge : MonoBehaviour
     #endregion
 
     #region Materials
+
+    public void AssignType(EdgeType type, Material typeMaterial)
+    {
+        edgeType      = type;
+        _typeMaterial = typeMaterial;
+        SetMaterial(typeMaterial);
+    }
+
+    public void RestoreTypeMaterial()
+    {
+        if (_typeMaterial != null) SetMaterial(_typeMaterial);
+    }
 
     public void AnimateVisited(Material visitedMat)
     {
