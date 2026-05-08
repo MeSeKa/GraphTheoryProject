@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum ToolType { Scissors, Axe, Bomb }
+public enum ToolType { Scissors, Axe, Bomb, Joker }
 
 public class ToolManager : MonoBehaviour
 {
@@ -24,6 +24,7 @@ public class ToolManager : MonoBehaviour
         ToolType.Scissors => edgeType == EdgeType.Rope,
         ToolType.Axe      => edgeType == EdgeType.Wood,
         ToolType.Bomb     => edgeType == EdgeType.Stone,
+        ToolType.Joker    => true,
         _                 => false
     };
 
