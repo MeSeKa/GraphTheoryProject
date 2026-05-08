@@ -34,6 +34,7 @@ public class HexGameManager : MonoBehaviour
     [SerializeField] GameObject losePanel;
     [SerializeField] Button     nextLevelButton;
     [SerializeField] Button     retryButton;
+    [SerializeField] Button     retryButtonWin;
 
     private int         _currentLevelIndex;
     private int         _cutsUsed;
@@ -43,8 +44,9 @@ public class HexGameManager : MonoBehaviour
 
     private void Start()
     {
-        if (nextLevelButton) nextLevelButton.onClick.AddListener(LoadNextLevel);
-        if (retryButton)     retryButton.onClick.AddListener(RetryLevel);
+        if (nextLevelButton)  nextLevelButton.onClick.AddListener(LoadNextLevel);
+        if (retryButton)      retryButton.onClick.AddListener(RetryLevel);
+        if (retryButtonWin)   retryButtonWin.onClick.AddListener(RetryLevel);
 
         winPanel?.SetActive(false);
         losePanel?.SetActive(false);

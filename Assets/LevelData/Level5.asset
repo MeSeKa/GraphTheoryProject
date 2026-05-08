@@ -1,0 +1,102 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f909351dbcec5b546865feb6514159d7, type: 3}
+  m_Name: Level5
+  m_EditorClassIdentifier: Assembly-CSharp::HexLevelData
+  levelName: Mountain Pass
+  levelNumber: 5
+  scissorsCount: 1
+  axeCount: 1
+  bombCount: 1
+  jokerCount: 1
+  tiles:
+  - q: 0
+    r: 0
+  - q: 1
+    r: 0
+  - q: 2
+    r: 0
+  - q: 3
+    r: 0
+  - q: 4
+    r: 0
+  - q: 0
+    r: 1
+  - q: 1
+    r: 1
+  - q: 2
+    r: 1
+  - q: 3
+    r: 1
+  bridges:
+  - q1: 0
+    r1: 0
+    q2: 1
+    r2: 0
+    edgeType: 2
+  - q1: 1
+    r1: 0
+    q2: 2
+    r2: 0
+    edgeType: 0
+  - q1: 2
+    r1: 0
+    q2: 3
+    r2: 0
+    edgeType: 1
+  - q1: 3
+    r1: 0
+    q2: 4
+    r2: 0
+    edgeType: 0
+  - q1: 0
+    r1: 0
+    q2: 0
+    r2: 1
+    edgeType: 0
+  - q1: 0
+    r1: 1
+    q2: 1
+    r2: 1
+    edgeType: 1
+  - q1: 1
+    r1: 1
+    q2: 2
+    r2: 1
+    edgeType: 2
+  - q1: 2
+    r1: 1
+    q2: 3
+    r2: 1
+    edgeType: 0
+  - q1: 3
+    r1: 1
+    q2: 4
+    r2: 0
+    edgeType: 1
+  - q1: 1
+    r1: 0
+    q2: 0
+    r2: 1
+    edgeType: 0
+  - q1: 2
+    r1: 0
+    q2: 2
+    r2: 1
+    edgeType: 0
+  - q1: 3
+    r1: 1
+    q2: 3
+    r2: 0
+    edgeType: 2
+  sourceTile: {x: 0, y: 0}
+  destinationTile: {x: 4, y: 0}
