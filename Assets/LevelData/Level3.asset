@@ -14,58 +14,63 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HexLevelData
   levelName: The Gauntlet
   levelNumber: 3
-  scissorsCount: 1
   axeCount: 1
-  bombCount: 1
-  jokerCount: 1
+  pickaxeCount: 1
+  bombCount: 2
   tiles:
   - q: 0
     r: 0
+    tileType: 0
   - q: 1
     r: 0
+    tileType: 0
   - q: 2
     r: 0
+    tileType: 0
   - q: 0
     r: 1
+    tileType: 0
   - q: 1
     r: 1
+    tileType: 0
   - q: 2
     r: 1
+    tileType: 0
   bridges:
   - q1: 0
     r1: 0
     q2: 1
     r2: 0
-    edgeType: 0
+    edgeType: 1
   - q1: 1
     r1: 0
     q2: 2
     r2: 0
-    edgeType: 1
+    edgeType: 2
   - q1: 2
     r1: 0
     q2: 2
     r2: 1
-    edgeType: 0
+    edgeType: 1
   - q1: 0
     r1: 0
     q2: 0
     r2: 1
-    edgeType: 1
+    edgeType: 2
   - q1: 0
     r1: 1
     q2: 1
     r2: 1
-    edgeType: 0
+    edgeType: 1
   - q1: 1
     r1: 1
     q2: 2
     r2: 1
-    edgeType: 2
+    edgeType: 3
   - q1: 1
     r1: 0
     q2: 1
     r2: 1
-    edgeType: 0
+    edgeType: 1
   sourceTile: {x: 0, y: 0}
   destinationTile: {x: 2, y: 1}

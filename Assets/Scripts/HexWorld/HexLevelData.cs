@@ -1,9 +1,12 @@
 using UnityEngine;
 
+public enum HexTileType { Default, Grass, Stone, Sand }
+
 [System.Serializable]
 public struct HexTileEntry
 {
-    public int q, r;
+    public int         q, r;
+    public HexTileType tileType;
 }
 
 [System.Serializable]
@@ -18,14 +21,14 @@ public struct HexBridgeEntry
 public class HexLevelData : ScriptableObject
 {
     [Header("Info")]
-    public string levelName   = "Level 1";
-    public int    levelNumber = 1;
+    public string      levelName   = "Level 1";
+    public int         levelNumber = 1;
+    public HexTileType tileType    = HexTileType.Grass;
 
     [Header("Tool Inventory")]
-    public int scissorsCount;
     public int axeCount;
+    public int pickaxeCount;
     public int bombCount;
-    public int jokerCount;
 
     [Header("Grid")]
     public HexTileEntry[]   tiles;

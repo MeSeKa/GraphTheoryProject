@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum ToolType { Scissors, Axe, Bomb, Joker }
+public enum ToolType { Scissors, Axe, Bomb, Joker, Pickaxe }
 
 public class ToolManager : MonoBehaviour
 {

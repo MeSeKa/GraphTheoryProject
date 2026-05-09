@@ -3,20 +3,27 @@ using UnityEngine;
 
 public class HexLevelLoader : MonoBehaviour
 {
-    [Header("Prefabs")]
-    [SerializeField] HexTile   tilePrefab;
-    [SerializeField] HexBridge ropeBridgePrefab;
+    [Header("Tile Prefabs (by theme)")]
+    [SerializeField] HexTile grassTilePrefab;
+    [SerializeField] HexTile stoneTilePrefab;
+    [SerializeField] HexTile sandTilePrefab;
+
+    [Header("Special Tile Prefabs")]
+    [SerializeField] HexTile sourceTilePrefab;
+    [SerializeField] HexTile destinationTilePrefab;
+
+    [Header("Bridge Prefabs")]
     [SerializeField] HexBridge woodBridgePrefab;
     [SerializeField] HexBridge stoneBridgePrefab;
+    [SerializeField] HexBridge metalBridgePrefab;
 
     [Header("Settings")]
     [SerializeField] public float hexSize = 4f;
 
-    [Header("Materials (source / destination)")]
+    [Header("Fallback Materials (if no special prefab)")]
     [SerializeField] Material sourceTileMaterial;
     [SerializeField] Material destinationTileMaterial;
 
-    // Loaded at runtime — read by HexGameManager
     public HexTile SourceTile      { get; private set; }
     public HexTile DestinationTile { get; private set; }
 
@@ -26,24 +33,40 @@ public class HexLevelLoader : MonoBehaviour
     {
         ClearLevel();
 
-        // ── Spawn tiles ──
+        var srcKey = data.sourceTile;
+        var dstKey = data.destinationTile;
+
         foreach (var entry in data.tiles)
         {
+            var key = new Vector2Int(entry.q, entry.r);
             Vector3 worldPos = HexGrid.AxialToWorld(entry.q, entry.r, hexSize);
-            var tile = Instantiate(tilePrefab, worldPos, Quaternion.identity, transform);
-            tile.q = entry.q;
-            tile.r = entry.r;
+
+            HexTile prefab;
+            if (key == srcKey && sourceTilePrefab != null)
+                prefab = sourceTilePrefab;
+            else if (key == dstKey && destinationTilePrefab != null)
+                prefab = destinationTilePrefab;
+            else
+                prefab = TilePrefabFor(ResolveType(entry.tileType, data.tileType));
+
+            var tile = Instantiate(prefab, worldPos, Quaternion.identity, transform);
+            tile.q    = entry.q;
+            tile.r    = entry.r;
             tile.name = $"Tile({entry.q},{entry.r})";
-            _tileMap[new Vector2Int(entry.q, entry.r)] = tile;
+            _tileMap[key] = tile;
         }
 
-        // Source / destination materials
-        var srcKey  = data.sourceTile;
-        var dstKey  = data.destinationTile;
-        if (_tileMap.TryGetValue(srcKey,  out var src))  { SourceTile = src;  src.SetMaterial(sourceTileMaterial); }
-        if (_tileMap.TryGetValue(dstKey,  out var dst))  { DestinationTile = dst; dst.SetMaterial(destinationTileMaterial); }
+        if (_tileMap.TryGetValue(srcKey, out var src))
+        {
+            SourceTile = src;
+            if (sourceTilePrefab == null) src.SetMaterial(sourceTileMaterial);
+        }
+        if (_tileMap.TryGetValue(dstKey, out var dst))
+        {
+            DestinationTile = dst;
+            if (destinationTilePrefab == null) dst.SetMaterial(destinationTileMaterial);
+        }
 
-        // ── Spawn bridges ──
         foreach (var entry in data.bridges)
         {
             var keyA = new Vector2Int(entry.q1, entry.r1);
@@ -55,7 +78,6 @@ public class HexLevelLoader : MonoBehaviour
 
             var bridge = Instantiate(prefab, transform);
             bridge.name = $"Bridge({entry.q1},{entry.r1})-({entry.q2},{entry.r2})";
-            // Material will be assigned by HexGameManager after load
             bridge.Initialize(tA, tB, entry.edgeType, null);
         }
 
@@ -71,11 +93,20 @@ public class HexLevelLoader : MonoBehaviour
         DestinationTile = null;
     }
 
+    static HexTileType ResolveType(HexTileType perTile, HexTileType levelDefault) =>
+        perTile == HexTileType.Default ? levelDefault : perTile;
+
+    HexTile TilePrefabFor(HexTileType type) => type switch
+    {
+        HexTileType.Stone => stoneTilePrefab ? stoneTilePrefab : grassTilePrefab,
+        HexTileType.Sand  => sandTilePrefab  ? sandTilePrefab  : grassTilePrefab,
+        _                 => grassTilePrefab  // Grass veya Default (resolve edilmiş olmalı)
+    };
+
     HexBridge BridgePrefabFor(EdgeType type) => type switch
     {
-        EdgeType.Rope  => ropeBridgePrefab,
-        EdgeType.Wood  => woodBridgePrefab,
         EdgeType.Stone => stoneBridgePrefab,
-        _              => ropeBridgePrefab
+        EdgeType.Metal => metalBridgePrefab,
+        _              => woodBridgePrefab
     };
 }

@@ -32,7 +32,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.6, y: 0.45, z: 5.2}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 3506744912055942673}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1792647387199312390
@@ -62,8 +63,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 3.3510487, y: 2.8079925, z: 0.7732935}
+  m_Center: {x: -0.31829396, y: 0.903994, z: 0.005483914}
 --- !u!23 &2040287646565901155
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -71,7 +72,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4442358248255399920}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -129,3 +130,81 @@ MonoBehaviour:
   tileB: {fileID: 0}
   edgeType: 0
   bridgeRenderer: {fileID: 2040287646565901155}
+--- !u!1001 &3972399818101086714
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7614943139633176814}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 20f047cf447d8bb4eb88e05350b08be6, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 10.576922
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 20f047cf447d8bb4eb88e05350b08be6, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 91.66665
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 20f047cf447d8bb4eb88e05350b08be6, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 122.22222
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 20f047cf447d8bb4eb88e05350b08be6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 20f047cf447d8bb4eb88e05350b08be6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 20f047cf447d8bb4eb88e05350b08be6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 20f047cf447d8bb4eb88e05350b08be6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.49999997
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 20f047cf447d8bb4eb88e05350b08be6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.50000006
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 20f047cf447d8bb4eb88e05350b08be6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.49999997
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 20f047cf447d8bb4eb88e05350b08be6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.50000006
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 20f047cf447d8bb4eb88e05350b08be6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 20f047cf447d8bb4eb88e05350b08be6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 20f047cf447d8bb4eb88e05350b08be6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 20f047cf447d8bb4eb88e05350b08be6, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 20f047cf447d8bb4eb88e05350b08be6, type: 3}
+      propertyPath: m_Name
+      value: Bridge_Small_wooden
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 20f047cf447d8bb4eb88e05350b08be6, type: 3}
+--- !u!4 &3506744912055942673 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 20f047cf447d8bb4eb88e05350b08be6, type: 3}
+  m_PrefabInstance: {fileID: 3972399818101086714}
+  m_PrefabAsset: {fileID: 0}

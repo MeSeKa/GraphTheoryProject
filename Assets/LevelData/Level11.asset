@@ -14,222 +14,239 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HexLevelData
   levelName: Ancient Ruins
   levelNumber: 11
-  scissorsCount: 2
   axeCount: 2
-  bombCount: 2
-  jokerCount: 2
+  pickaxeCount: 2
+  bombCount: 4
   tiles:
   - q: 0
     r: 0
+    tileType: 0
   - q: 1
     r: 0
+    tileType: 0
   - q: 2
     r: 0
+    tileType: 0
   - q: 3
     r: 0
+    tileType: 0
   - q: 4
     r: 0
+    tileType: 0
   - q: 5
     r: 0
+    tileType: 0
   - q: 6
     r: 0
+    tileType: 0
   - q: 0
     r: 1
+    tileType: 0
   - q: 1
     r: 1
+    tileType: 0
   - q: 2
     r: 1
+    tileType: 0
   - q: 3
     r: 1
+    tileType: 0
   - q: 4
     r: 1
+    tileType: 0
   - q: 5
     r: 1
+    tileType: 0
   - q: 6
     r: 1
+    tileType: 0
   - q: 0
     r: 2
+    tileType: 0
   - q: 1
     r: 2
+    tileType: 0
   - q: 2
     r: 2
+    tileType: 0
   - q: 3
     r: 2
+    tileType: 0
   bridges:
   - q1: 0
     r1: 0
     q2: 1
     r2: 0
-    edgeType: 0
+    edgeType: 1
   - q1: 1
     r1: 0
     q2: 2
     r2: 0
-    edgeType: 2
+    edgeType: 3
   - q1: 2
     r1: 0
     q2: 3
     r2: 0
-    edgeType: 1
+    edgeType: 2
   - q1: 3
     r1: 0
     q2: 4
     r2: 0
-    edgeType: 0
+    edgeType: 1
   - q1: 4
     r1: 0
     q2: 5
     r2: 0
-    edgeType: 2
+    edgeType: 3
   - q1: 5
     r1: 0
     q2: 6
     r2: 0
-    edgeType: 1
+    edgeType: 2
   - q1: 0
     r1: 1
     q2: 1
     r2: 1
-    edgeType: 1
+    edgeType: 2
   - q1: 1
     r1: 1
     q2: 2
     r2: 1
-    edgeType: 0
+    edgeType: 1
   - q1: 2
     r1: 1
     q2: 3
     r2: 1
-    edgeType: 2
+    edgeType: 3
   - q1: 3
     r1: 1
     q2: 4
     r2: 1
-    edgeType: 1
+    edgeType: 2
   - q1: 4
     r1: 1
     q2: 5
     r2: 1
-    edgeType: 0
+    edgeType: 1
   - q1: 5
     r1: 1
     q2: 6
     r2: 1
-    edgeType: 2
+    edgeType: 3
   - q1: 0
     r1: 2
     q2: 1
     r2: 2
-    edgeType: 2
+    edgeType: 3
   - q1: 1
     r1: 2
     q2: 2
     r2: 2
-    edgeType: 1
+    edgeType: 2
   - q1: 2
     r1: 2
     q2: 3
     r2: 2
-    edgeType: 0
+    edgeType: 1
   - q1: 0
     r1: 0
     q2: 0
     r2: 1
-    edgeType: 2
+    edgeType: 3
   - q1: 1
     r1: 0
     q2: 1
     r2: 1
-    edgeType: 1
+    edgeType: 2
   - q1: 2
     r1: 0
     q2: 2
     r2: 1
-    edgeType: 0
+    edgeType: 1
   - q1: 3
     r1: 0
     q2: 3
     r2: 1
-    edgeType: 2
+    edgeType: 3
   - q1: 4
     r1: 0
     q2: 4
     r2: 1
-    edgeType: 1
+    edgeType: 2
   - q1: 5
     r1: 0
     q2: 5
     r2: 1
-    edgeType: 0
+    edgeType: 1
   - q1: 6
     r1: 0
     q2: 6
     r2: 1
-    edgeType: 2
+    edgeType: 3
   - q1: 0
     r1: 1
     q2: 0
     r2: 2
-    edgeType: 0
+    edgeType: 1
   - q1: 1
     r1: 1
     q2: 1
     r2: 2
-    edgeType: 2
+    edgeType: 3
   - q1: 2
     r1: 1
     q2: 2
     r2: 2
-    edgeType: 1
+    edgeType: 2
   - q1: 3
     r1: 1
     q2: 3
     r2: 2
-    edgeType: 0
+    edgeType: 1
   - q1: 0
     r1: 1
     q2: 1
     r2: 0
-    edgeType: 1
+    edgeType: 2
   - q1: 1
     r1: 1
     q2: 2
     r2: 0
-    edgeType: 0
+    edgeType: 1
   - q1: 2
     r1: 1
     q2: 3
     r2: 0
-    edgeType: 1
+    edgeType: 2
   - q1: 3
     r1: 1
     q2: 4
     r2: 0
-    edgeType: 2
+    edgeType: 3
   - q1: 4
     r1: 1
     q2: 5
     r2: 0
-    edgeType: 0
+    edgeType: 1
   - q1: 5
     r1: 1
     q2: 6
     r2: 0
-    edgeType: 1
+    edgeType: 2
   - q1: 0
     r1: 2
     q2: 1
     r2: 1
-    edgeType: 0
+    edgeType: 1
   - q1: 1
     r1: 2
     q2: 2
     r2: 1
-    edgeType: 2
+    edgeType: 3
   - q1: 2
     r1: 2
     q2: 3
     r2: 1
-    edgeType: 1
+    edgeType: 2
   sourceTile: {x: 0, y: 0}
   destinationTile: {x: 6, y: 0}

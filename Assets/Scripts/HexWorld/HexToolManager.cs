@@ -5,47 +5,42 @@ using UnityEngine.UI;
 public class HexToolManager : MonoBehaviour
 {
     [Header("Buttons")]
-    [SerializeField] Button   scissorsButton;
-    [SerializeField] Button   axeButton;
-    [SerializeField] Button   bombButton;
-    [SerializeField] Button   jokerButton;
+    [SerializeField] Button axeButton;
+    [SerializeField] Button pickaxeButton;
+    [SerializeField] Button bombButton;
 
     [Header("Count Labels")]
-    [SerializeField] TMP_Text scissorsCountText;
     [SerializeField] TMP_Text axeCountText;
+    [SerializeField] TMP_Text pickaxeCountText;
     [SerializeField] TMP_Text bombCountText;
-    [SerializeField] TMP_Text jokerCountText;
 
-    private int _scissors;
     private int _axe;
+    private int _pickaxe;
     private int _bomb;
-    private int _joker;
 
-    public ToolType ActiveTool { get; private set; } = ToolType.Scissors;
+    public ToolType ActiveTool { get; private set; } = ToolType.Axe;
 
     private void Start()
     {
-        scissorsButton.onClick.AddListener(() => SelectTool(ToolType.Scissors));
-        axeButton.onClick.AddListener(()      => SelectTool(ToolType.Axe));
-        bombButton.onClick.AddListener(()     => SelectTool(ToolType.Bomb));
-        jokerButton.onClick.AddListener(()    => SelectTool(ToolType.Joker));
+        axeButton.onClick.AddListener(()     => SelectTool(ToolType.Axe));
+        pickaxeButton.onClick.AddListener(() => SelectTool(ToolType.Pickaxe));
+        bombButton.onClick.AddListener(()    => SelectTool(ToolType.Bomb));
     }
 
     public void LoadInventory(HexLevelData data)
     {
-        _scissors = data.scissorsCount;
-        _axe      = data.axeCount;
-        _bomb     = data.bombCount;
-        _joker    = data.jokerCount;
+        _axe     = data.axeCount;
+        _pickaxe = data.pickaxeCount;
+        _bomb    = data.bombCount;
         RefreshUI();
         AutoSelectFirst();
     }
 
-    // Returns true if the active tool can legally cut this edge type.
+    // Bomb (universal) cuts any bridge type.
     public bool CanCut(EdgeType edgeType)
     {
-        if (ActiveTool == ToolType.Joker)
-            return _joker > 0;
+        if (ActiveTool == ToolType.Bomb)
+            return _bomb > 0;
         return ToolMatchesEdge(ActiveTool, edgeType) && Remaining(ActiveTool) > 0;
     }
 
@@ -53,17 +48,15 @@ public class HexToolManager : MonoBehaviour
     {
         switch (ActiveTool)
         {
-            case ToolType.Scissors: _scissors--; break;
-            case ToolType.Axe:      _axe--;      break;
-            case ToolType.Bomb:     _bomb--;      break;
-            case ToolType.Joker:    _joker--;     break;
+            case ToolType.Axe:     _axe--;     break;
+            case ToolType.Pickaxe: _pickaxe--; break;
+            case ToolType.Bomb:    _bomb--;     break;
         }
         RefreshUI();
         if (Remaining(ActiveTool) <= 0) AutoSelectFirst();
     }
 
-    public bool AnyToolRemaining() =>
-        _scissors > 0 || _axe > 0 || _bomb > 0 || _joker > 0;
+    public bool AnyToolRemaining() => _axe > 0 || _pickaxe > 0 || _bomb > 0;
 
     // ── Helpers ──
 
@@ -76,48 +69,43 @@ public class HexToolManager : MonoBehaviour
 
     private void AutoSelectFirst()
     {
-        foreach (ToolType t in new[] { ToolType.Scissors, ToolType.Axe, ToolType.Bomb, ToolType.Joker })
+        foreach (ToolType t in new[] { ToolType.Axe, ToolType.Pickaxe, ToolType.Bomb })
             if (Remaining(t) > 0) { ActiveTool = t; UpdateHighlights(); return; }
     }
 
     private int Remaining(ToolType t) => t switch
     {
-        ToolType.Scissors => _scissors,
-        ToolType.Axe      => _axe,
-        ToolType.Bomb     => _bomb,
-        ToolType.Joker    => _joker,
-        _                 => 0
+        ToolType.Axe     => _axe,
+        ToolType.Pickaxe => _pickaxe,
+        ToolType.Bomb    => _bomb,
+        _                => 0
     };
 
     private static bool ToolMatchesEdge(ToolType tool, EdgeType edge) => tool switch
     {
-        ToolType.Scissors => edge == EdgeType.Rope,
-        ToolType.Axe      => edge == EdgeType.Wood,
-        ToolType.Bomb     => edge == EdgeType.Stone,
-        _                 => false
+        ToolType.Axe     => edge == EdgeType.Wood,
+        ToolType.Pickaxe => edge == EdgeType.Stone,
+        _                => false
     };
 
     private void RefreshUI()
     {
-        SetCount(scissorsCountText, _scissors);
-        SetCount(axeCountText,      _axe);
-        SetCount(bombCountText,     _bomb);
-        SetCount(jokerCountText,    _joker);
+        SetCount(axeCountText,     _axe);
+        SetCount(pickaxeCountText, _pickaxe);
+        SetCount(bombCountText,    _bomb);
 
-        SetInteractable(scissorsButton, _scissors > 0);
-        SetInteractable(axeButton,      _axe      > 0);
-        SetInteractable(bombButton,     _bomb     > 0);
-        SetInteractable(jokerButton,    _joker    > 0);
+        SetInteractable(axeButton,     _axe     > 0);
+        SetInteractable(pickaxeButton, _pickaxe > 0);
+        SetInteractable(bombButton,    _bomb    > 0);
     }
 
     private void UpdateHighlights()
     {
         var normal = Color.white;
         var active = new Color(1f, 0.78f, 0.1f);
-        SetButtonColor(scissorsButton, ActiveTool == ToolType.Scissors ? active : normal);
-        SetButtonColor(axeButton,      ActiveTool == ToolType.Axe      ? active : normal);
-        SetButtonColor(bombButton,     ActiveTool == ToolType.Bomb     ? active : normal);
-        SetButtonColor(jokerButton,    ActiveTool == ToolType.Joker    ? active : normal);
+        SetButtonColor(axeButton,     ActiveTool == ToolType.Axe     ? active : normal);
+        SetButtonColor(pickaxeButton, ActiveTool == ToolType.Pickaxe ? active : normal);
+        SetButtonColor(bombButton,    ActiveTool == ToolType.Bomb     ? active : normal);
     }
 
     private static void SetCount(TMP_Text label, int count)

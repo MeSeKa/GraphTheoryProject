@@ -14,27 +14,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HexLevelData
   levelName: Tutorial
   levelNumber: 1
-  scissorsCount: 2
-  axeCount: 0
-  bombCount: 0
-  jokerCount: 1
+  axeCount: 2
+  pickaxeCount: 0
+  bombCount: 1
   tiles:
   - q: 0
     r: 0
+    tileType: 0
   - q: 1
     r: 0
+    tileType: 0
   - q: 2
     r: 0
+    tileType: 0
   bridges:
   - q1: 0
     r1: 0
     q2: 1
     r2: 0
-    edgeType: 0
+    edgeType: 1
   - q1: 1
     r1: 0
     q2: 2
     r2: 0
-    edgeType: 0
+    edgeType: 1
   sourceTile: {x: 0, y: 0}
   destinationTile: {x: 2, y: 0}

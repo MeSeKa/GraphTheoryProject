@@ -20,9 +20,9 @@ public class HexGameManager : MonoBehaviour
     [SerializeField] Material normalTileMaterial;
 
     [Header("Materials — Bridges")]
-    [SerializeField] public Material ropeBridgeMaterial;
     [SerializeField] public Material woodBridgeMaterial;
     [SerializeField] public Material stoneBridgeMaterial;
+    [SerializeField] public Material metalBridgeMaterial;
     [SerializeField] public Material errorBridgeMaterial;
     [SerializeField] public Material destroyedBridgeMaterial;
 
@@ -203,18 +203,16 @@ public class HexGameManager : MonoBehaviour
 
     private Material BridgeMaterial(EdgeType type) => type switch
     {
-        EdgeType.Rope  => ropeBridgeMaterial,
-        EdgeType.Wood  => woodBridgeMaterial,
         EdgeType.Stone => stoneBridgeMaterial,
-        _              => ropeBridgeMaterial
+        EdgeType.Metal => metalBridgeMaterial,
+        _              => woodBridgeMaterial
     };
 
     private static ToolType RequiredTool(EdgeType edge) => edge switch
     {
-        EdgeType.Rope  => ToolType.Scissors,
-        EdgeType.Wood  => ToolType.Axe,
-        EdgeType.Stone => ToolType.Bomb,
-        _              => ToolType.Scissors
+        EdgeType.Stone => ToolType.Pickaxe,
+        EdgeType.Metal => ToolType.Bomb,
+        _              => ToolType.Axe
     };
 
     private void UpdateCutsUI()
