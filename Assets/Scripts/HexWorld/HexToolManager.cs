@@ -14,6 +14,10 @@ public class HexToolManager : MonoBehaviour
     [SerializeField] TMP_Text pickaxeCountText;
     [SerializeField] TMP_Text bombCountText;
 
+    [Header("Selection Colors")]
+    [SerializeField] Color normalColor  = Color.white;
+    [SerializeField] Color selectedColor = new Color(1f, 0.78f, 0.1f);
+
     private int _axe;
     private int _pickaxe;
     private int _bomb;
@@ -25,6 +29,7 @@ public class HexToolManager : MonoBehaviour
         axeButton.onClick.AddListener(()     => SelectTool(ToolType.Axe));
         pickaxeButton.onClick.AddListener(() => SelectTool(ToolType.Pickaxe));
         bombButton.onClick.AddListener(()    => SelectTool(ToolType.Bomb));
+        UpdateHighlights();
     }
 
     public void LoadInventory(HexLevelData data)
@@ -101,11 +106,9 @@ public class HexToolManager : MonoBehaviour
 
     private void UpdateHighlights()
     {
-        var normal = Color.white;
-        var active = new Color(1f, 0.78f, 0.1f);
-        SetButtonColor(axeButton,     ActiveTool == ToolType.Axe     ? active : normal);
-        SetButtonColor(pickaxeButton, ActiveTool == ToolType.Pickaxe ? active : normal);
-        SetButtonColor(bombButton,    ActiveTool == ToolType.Bomb     ? active : normal);
+        SetButtonSelected(axeButton,     ActiveTool == ToolType.Axe);
+        SetButtonSelected(pickaxeButton, ActiveTool == ToolType.Pickaxe);
+        SetButtonSelected(bombButton,    ActiveTool == ToolType.Bomb);
     }
 
     private static void SetCount(TMP_Text label, int count)
@@ -118,11 +121,13 @@ public class HexToolManager : MonoBehaviour
         if (btn) btn.interactable = on;
     }
 
-    private static void SetButtonColor(Button btn, Color col)
+    private void SetButtonSelected(Button btn, bool selected)
     {
         if (btn == null) return;
-        var cb = btn.colors;
-        cb.normalColor = col;
-        btn.colors = cb;
+        if (btn.targetGraphic is Image img)
+            img.color = selected ? selectedColor : normalColor;
+        var sel = btn.transform.Find("Selected");
+        if (sel != null) sel.gameObject.SetActive(selected);
     }
+
 }

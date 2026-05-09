@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HexLevelData
   levelName: The Gauntlet
   levelNumber: 3
-  axeCount: 1
+  tileType: 1
+  axeCount: 0
   pickaxeCount: 1
-  bombCount: 2
+  bombCount: 1
   tiles:
   - q: 0
     r: 0
