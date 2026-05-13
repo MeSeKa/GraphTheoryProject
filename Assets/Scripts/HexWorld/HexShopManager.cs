@@ -135,7 +135,9 @@ public class HexShopManager : MonoBehaviour
         if (discountLabel)
         {
             bool hasDiscount = discountPct > 0 && effectivePrice < basePrice;
-            discountLabel.gameObject.SetActive(hasDiscount);
+            // Badge = parent of the label — hide the whole badge, not just the text
+            var badge = discountLabel.transform.parent?.gameObject ?? discountLabel.gameObject;
+            badge.SetActive(hasDiscount);
             if (hasDiscount) discountLabel.text = $"%{discountPct} İNDİRİM";
         }
     }
