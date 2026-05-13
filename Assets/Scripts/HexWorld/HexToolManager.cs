@@ -72,6 +72,18 @@ public class HexToolManager : MonoBehaviour
 
     public bool AnyToolRemaining() => _axe > 0 || _pickaxe > 0 || _ironShears > 0 || _bomb > 0;
 
+    public void AddTool(ToolType tool)
+    {
+        switch (tool)
+        {
+            case ToolType.Axe:        _axe++;        break;
+            case ToolType.Pickaxe:    _pickaxe++;    break;
+            case ToolType.IronShears: _ironShears++; break;
+            case ToolType.Bomb:       _bomb++;        break;
+        }
+        RefreshUI();
+    }
+
     // ── Helpers ──
 
     private void SelectTool(ToolType tool)

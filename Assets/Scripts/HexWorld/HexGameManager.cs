@@ -11,6 +11,7 @@ public class HexGameManager : MonoBehaviour
     [Header("References")]
     [SerializeField] HexLevelLoader  levelLoader;
     [SerializeField] HexToolManager  toolManager;
+    [SerializeField] HexShopManager  shopManager;
     [SerializeField] IsometricCamera isoCamera;
 
     [Header("Level Data")]
@@ -28,20 +29,22 @@ public class HexGameManager : MonoBehaviour
     [SerializeField] public Material destroyedBridgeMaterial;
 
     [Header("UI")]
-    [SerializeField] TMP_Text levelNameText;
-    [SerializeField] TMP_Text cutsUsedText;
-    [SerializeField] TMP_Text statusText;
+    [SerializeField] TMP_Text  levelNameText;
+    [SerializeField] TMP_Text  cutsUsedText;
+    [SerializeField] TMP_Text  statusText;
     [SerializeField] GameObject winPanel;
     [SerializeField] GameObject losePanel;
     [SerializeField] Button     nextLevelButton;
     [SerializeField] Button     retryButton;
     [SerializeField] Button     retryButtonWin;
+    [SerializeField] TMP_Text   starText;        // "⭐⭐⭐" göstermek için
 
-    private int         _currentLevelIndex;
-    private int         _cutsUsed;
+    private int              _currentLevelIndex;
+    private int              _cutsUsed;
+    private int              _levelStartingGold;
     private List<HexTile>   _tiles   = new();
     private List<HexBridge> _bridges = new();
-    private bool        _gameActive;
+    private bool             _gameActive;
 
     private void Start()
     {
@@ -96,7 +99,9 @@ public class HexGameManager : MonoBehaviour
         CacheBridges();
         ApplyBridgeMaterials();
 
+        _levelStartingGold = data.startingGold;
         toolManager.LoadInventory(data);
+        shopManager?.LoadLevel(data);
         isoCamera.FrameTiles(_tiles);
 
         if (levelNameText) levelNameText.text = $"Level {data.levelNumber}: {data.levelName}";
@@ -191,13 +196,24 @@ public class HexGameManager : MonoBehaviour
     private void OnWin()
     {
         _gameActive = false;
+        int stars = CalcStars();
         SetStatus($"You saved the sheep! Cuts used: {_cutsUsed}");
         bool hasNext = _currentLevelIndex + 1 < levels.Length;
         DOVirtual.DelayedCall(1f, () =>
         {
             winPanel?.SetActive(true);
             nextLevelButton?.gameObject.SetActive(hasNext);
+            if (starText) starText.text = new string('*', stars);  // UI tarafı sprite'a çevirir
         });
+    }
+
+    private int CalcStars()
+    {
+        if (_levelStartingGold <= 0 || shopManager == null) return 1;
+        float ratio = (float)shopManager.Gold / _levelStartingGold;
+        if (ratio >= 0.66f) return 3;
+        if (ratio >= 0.33f) return 2;
+        return 1;
     }
 
     private void OnLose()

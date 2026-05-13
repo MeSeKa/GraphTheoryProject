@@ -31,6 +31,15 @@ public class HexLevelData : ScriptableObject
     public int ironShearsCount;
     public int bombCount;
 
+    [Header("Economy")]
+    public int startingGold = 0;
+
+    [Header("Price Discounts (%)  0 = no discount")]
+    [Range(0, 100)] public int axeDiscount;
+    [Range(0, 100)] public int pickaxeDiscount;
+    [Range(0, 100)] public int ironShearsDiscount;
+    [Range(0, 100)] public int bombDiscount;
+
     [Header("Grid")]
     public HexTileEntry[]   tiles;
     public HexBridgeEntry[] bridges;
