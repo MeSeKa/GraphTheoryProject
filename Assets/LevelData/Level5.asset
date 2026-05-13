@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HexLevelData
   levelName: Mountain Pass
   levelNumber: 5
+  tileType: 1
   axeCount: 1
   pickaxeCount: 1
-  bombCount: 2
+  ironShearsCount: 1
+  bombCount: 0
   tiles:
   - q: 0
     r: 0

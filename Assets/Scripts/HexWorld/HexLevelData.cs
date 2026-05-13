@@ -28,6 +28,7 @@ public class HexLevelData : ScriptableObject
     [Header("Tool Inventory")]
     public int axeCount;
     public int pickaxeCount;
+    public int ironShearsCount;
     public int bombCount;
 
     [Header("Grid")]

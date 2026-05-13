@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -65,10 +66,16 @@ public class HexGameManager : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(mouse.position.ReadValue());
         if (!Physics.Raycast(ray, out RaycastHit hit)) return;
 
-        HexBridge bridge = hit.collider.GetComponentInParent<HexBridge>();
-        if (bridge == null) return;
-
-        HandleBridgeClick(bridge);
+        if (toolManager.ActiveTool == ToolType.Bomb)
+        {
+            HexTile tile = hit.collider.GetComponentInParent<HexTile>();
+            if (tile != null) HandleTileClick(tile);
+        }
+        else
+        {
+            HexBridge bridge = hit.collider.GetComponentInParent<HexBridge>();
+            if (bridge != null) HandleBridgeClick(bridge);
+        }
     }
 
     // ── Level Loading ──
@@ -113,7 +120,45 @@ public class HexGameManager : MonoBehaviour
         _cutsUsed++;
         toolManager.ConsumeActiveTool();
         UpdateCutsUI();
+        CheckEndCondition();
+    }
 
+    private void HandleTileClick(HexTile tile)
+    {
+        if (tile == levelLoader.SourceTile || tile == levelLoader.DestinationTile)
+        {
+            SetStatus("Can't bomb the source or destination!");
+            return;
+        }
+
+        if (!toolManager.IsBombActive())
+        {
+            SetStatus("No bombs remaining!");
+            return;
+        }
+
+        BombTile(tile);
+        _cutsUsed++;
+        toolManager.ConsumeActiveTool();
+        UpdateCutsUI();
+        CheckEndCondition();
+    }
+
+    private void BombTile(HexTile tile)
+    {
+        var bridges = new List<HexBridge>(tile.bridges);
+        foreach (var bridge in bridges)
+        {
+            bridge.tileA?.bridges.Remove(bridge);
+            bridge.tileB?.bridges.Remove(bridge);
+            bridge.AnimateDestroyed(destroyedBridgeMaterial);
+            StartCoroutine(RemoveAfterDelay(bridge.gameObject, 0.5f));
+        }
+        StartCoroutine(RemoveAfterDelay(tile.gameObject, 0.5f));
+    }
+
+    private void CheckEndCondition()
+    {
         if (!IsConnected(levelLoader.SourceTile, levelLoader.DestinationTile))
             OnWin();
         else if (!toolManager.AnyToolRemaining())
@@ -146,10 +191,13 @@ public class HexGameManager : MonoBehaviour
     private void OnWin()
     {
         _gameActive = false;
-        winPanel?.SetActive(true);
         SetStatus($"You saved the sheep! Cuts used: {_cutsUsed}");
         bool hasNext = _currentLevelIndex + 1 < levels.Length;
-        nextLevelButton?.gameObject.SetActive(hasNext);
+        DOVirtual.DelayedCall(1f, () =>
+        {
+            winPanel?.SetActive(true);
+            nextLevelButton?.gameObject.SetActive(hasNext);
+        });
     }
 
     private void OnLose()
@@ -211,7 +259,7 @@ public class HexGameManager : MonoBehaviour
     private static ToolType RequiredTool(EdgeType edge) => edge switch
     {
         EdgeType.Stone => ToolType.Pickaxe,
-        EdgeType.Metal => ToolType.Bomb,
+        EdgeType.Metal => ToolType.IronShears,
         _              => ToolType.Axe
     };
 
