@@ -1,7 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 
-public enum EdgeType { Rope, Wood, Stone, Metal }
+public enum EdgeType { Rope, Wood, Stone, Metal, Unbreakable }
 
 public class GraphEdge : MonoBehaviour
 {

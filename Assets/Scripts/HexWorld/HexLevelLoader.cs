@@ -16,6 +16,7 @@ public class HexLevelLoader : MonoBehaviour
     [SerializeField] HexBridge woodBridgePrefab;
     [SerializeField] HexBridge stoneBridgePrefab;
     [SerializeField] HexBridge metalBridgePrefab;
+    [SerializeField] HexBridge unbreakableBridgePrefab;
 
     [Header("Settings")]
     [SerializeField] public float hexSize = 4f;
@@ -105,8 +106,9 @@ public class HexLevelLoader : MonoBehaviour
 
     HexBridge BridgePrefabFor(EdgeType type) => type switch
     {
-        EdgeType.Stone => stoneBridgePrefab,
-        EdgeType.Metal => metalBridgePrefab,
-        _              => woodBridgePrefab
+        EdgeType.Stone       => stoneBridgePrefab,
+        EdgeType.Metal       => metalBridgePrefab,
+        EdgeType.Unbreakable => unbreakableBridgePrefab ? unbreakableBridgePrefab : metalBridgePrefab,
+        _                    => woodBridgePrefab
     };
 }

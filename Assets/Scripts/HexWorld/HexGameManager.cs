@@ -27,6 +27,7 @@ public class HexGameManager : MonoBehaviour
     [SerializeField] public Material metalBridgeMaterial;
     [SerializeField] public Material errorBridgeMaterial;
     [SerializeField] public Material destroyedBridgeMaterial;
+    [SerializeField] public Material unbreakableBridgeMaterial;
 
     [Header("UI")]
     [SerializeField] TMP_Text  levelNameText;
@@ -113,6 +114,13 @@ public class HexGameManager : MonoBehaviour
 
     private void HandleBridgeClick(HexBridge bridge)
     {
+        if (bridge.isUnbreakable)
+        {
+            StartCoroutine(FlashError(bridge));
+            SetStatus("This bridge cannot be destroyed!");
+            return;
+        }
+
         if (!toolManager.CanCut(bridge.edgeType))
         {
             StartCoroutine(FlashError(bridge));
@@ -154,6 +162,12 @@ public class HexGameManager : MonoBehaviour
         var bridges = new List<HexBridge>(tile.bridges);
         foreach (var bridge in bridges)
         {
+            if (bridge.isUnbreakable)
+            {
+                // Unbreakable bridge survives visually; disconnect from the other tile's graph list
+                bridge.GetOtherTile(tile)?.bridges.Remove(bridge);
+                continue;
+            }
             bridge.tileA?.bridges.Remove(bridge);
             bridge.tileB?.bridges.Remove(bridge);
             bridge.AnimateDestroyed(destroyedBridgeMaterial);
@@ -267,9 +281,10 @@ public class HexGameManager : MonoBehaviour
 
     private Material BridgeMaterial(EdgeType type) => type switch
     {
-        EdgeType.Stone => stoneBridgeMaterial,
-        EdgeType.Metal => metalBridgeMaterial,
-        _              => woodBridgeMaterial
+        EdgeType.Stone       => stoneBridgeMaterial,
+        EdgeType.Metal       => metalBridgeMaterial,
+        EdgeType.Unbreakable => unbreakableBridgeMaterial,
+        _                    => woodBridgeMaterial
     };
 
     private static ToolType RequiredTool(EdgeType edge) => edge switch

@@ -7,6 +7,8 @@ public class HexBridge : MonoBehaviour
     [HideInInspector] public HexTile  tileB;
     [HideInInspector] public EdgeType edgeType;
 
+    public bool isUnbreakable => edgeType == EdgeType.Unbreakable;
+
     [SerializeField] Renderer bridgeRenderer;
 
     private Material _typeMaterial;

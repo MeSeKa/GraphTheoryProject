@@ -17,6 +17,7 @@ MonoBehaviour:
   axeCount: 2
   pickaxeCount: 2
   bombCount: 4
+  startingGold: 500
   tiles:
   - q: 0
     r: 0
