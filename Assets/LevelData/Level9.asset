@@ -12,180 +12,1212 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f909351dbcec5b546865feb6514159d7, type: 3}
   m_Name: Level9
   m_EditorClassIdentifier: Assembly-CSharp::HexLevelData
-  levelName: The Delta
-  levelNumber: 9
+  levelName: Generated Level
+  levelNumber: 1
+  tileType: 1
   axeCount: 2
-  pickaxeCount: 2
-  bombCount: 3
+  pickaxeCount: 6
+  ironShearsCount: 0
+  bombCount: 0
   startingGold: 500
+  axeDiscount: 0
+  pickaxeDiscount: 0
+  ironShearsDiscount: 0
+  bombDiscount: 0
   tiles:
+  - q: -5
+    r: 0
+    tileType: 0
+  - q: -5
+    r: 1
+    tileType: 0
+  - q: -5
+    r: 2
+    tileType: 0
+  - q: -5
+    r: 3
+    tileType: 0
+  - q: -5
+    r: 4
+    tileType: 0
+  - q: -5
+    r: 5
+    tileType: 0
+  - q: -4
+    r: -1
+    tileType: 0
+  - q: -4
+    r: 0
+    tileType: 0
+  - q: -4
+    r: 1
+    tileType: 0
+  - q: -4
+    r: 2
+    tileType: 0
+  - q: -4
+    r: 3
+    tileType: 0
+  - q: -4
+    r: 4
+    tileType: 0
+  - q: -4
+    r: 5
+    tileType: 0
+  - q: -3
+    r: -2
+    tileType: 0
+  - q: -3
+    r: -1
+    tileType: 0
+  - q: -3
+    r: 0
+    tileType: 0
+  - q: -3
+    r: 1
+    tileType: 0
+  - q: -3
+    r: 2
+    tileType: 0
+  - q: -3
+    r: 3
+    tileType: 0
+  - q: -3
+    r: 4
+    tileType: 0
+  - q: -3
+    r: 5
+    tileType: 0
+  - q: -2
+    r: -3
+    tileType: 0
+  - q: -2
+    r: -2
+    tileType: 0
+  - q: -2
+    r: -1
+    tileType: 0
+  - q: -2
+    r: 0
+    tileType: 0
+  - q: -2
+    r: 1
+    tileType: 0
+  - q: -2
+    r: 2
+    tileType: 0
+  - q: -2
+    r: 3
+    tileType: 0
+  - q: -2
+    r: 4
+    tileType: 0
+  - q: -2
+    r: 5
+    tileType: 0
+  - q: -1
+    r: -4
+    tileType: 0
+  - q: -1
+    r: -3
+    tileType: 0
+  - q: -1
+    r: -2
+    tileType: 0
+  - q: -1
+    r: -1
+    tileType: 0
+  - q: -1
+    r: 0
+    tileType: 0
+  - q: -1
+    r: 1
+    tileType: 0
+  - q: -1
+    r: 2
+    tileType: 0
+  - q: -1
+    r: 3
+    tileType: 0
+  - q: -1
+    r: 4
+    tileType: 0
+  - q: -1
+    r: 5
+    tileType: 0
+  - q: 0
+    r: -5
+    tileType: 0
+  - q: 0
+    r: -4
+    tileType: 0
+  - q: 0
+    r: -3
+    tileType: 0
+  - q: 0
+    r: -2
+    tileType: 0
+  - q: 0
+    r: -1
+    tileType: 0
   - q: 0
     r: 0
     tileType: 0
-  - q: 1
-    r: 0
-    tileType: 0
-  - q: 2
-    r: 0
-    tileType: 0
-  - q: 3
-    r: 0
-    tileType: 0
-  - q: 4
-    r: 0
-    tileType: 0
-  - q: 5
-    r: 0
-    tileType: 0
   - q: 0
-    r: 1
-    tileType: 0
-  - q: 1
-    r: 1
-    tileType: 0
-  - q: 2
-    r: 1
-    tileType: 0
-  - q: 3
-    r: 1
-    tileType: 0
-  - q: 4
-    r: 1
-    tileType: 0
-  - q: 5
     r: 1
     tileType: 0
   - q: 0
     r: 2
     tileType: 0
+  - q: 0
+    r: 3
+    tileType: 0
+  - q: 0
+    r: 4
+    tileType: 0
+  - q: 0
+    r: 5
+    tileType: 0
+  - q: 1
+    r: -5
+    tileType: 0
+  - q: 1
+    r: -4
+    tileType: 0
+  - q: 1
+    r: -3
+    tileType: 0
+  - q: 1
+    r: -2
+    tileType: 0
+  - q: 1
+    r: -1
+    tileType: 0
+  - q: 1
+    r: 0
+    tileType: 0
+  - q: 1
+    r: 1
+    tileType: 0
   - q: 1
     r: 2
+    tileType: 0
+  - q: 1
+    r: 3
+    tileType: 0
+  - q: 1
+    r: 4
+    tileType: 0
+  - q: 2
+    r: -5
+    tileType: 0
+  - q: 2
+    r: -4
+    tileType: 0
+  - q: 2
+    r: -3
+    tileType: 0
+  - q: 2
+    r: -2
+    tileType: 0
+  - q: 2
+    r: -1
+    tileType: 0
+  - q: 2
+    r: 0
+    tileType: 0
+  - q: 2
+    r: 1
+    tileType: 0
+  - q: 2
+    r: 2
+    tileType: 0
+  - q: 2
+    r: 3
+    tileType: 0
+  - q: 3
+    r: -5
+    tileType: 0
+  - q: 3
+    r: -4
+    tileType: 0
+  - q: 3
+    r: -3
+    tileType: 0
+  - q: 3
+    r: -2
+    tileType: 0
+  - q: 3
+    r: -1
+    tileType: 0
+  - q: 3
+    r: 0
+    tileType: 0
+  - q: 3
+    r: 1
+    tileType: 0
+  - q: 3
+    r: 2
+    tileType: 0
+  - q: 4
+    r: -5
+    tileType: 0
+  - q: 4
+    r: -4
+    tileType: 0
+  - q: 4
+    r: -3
+    tileType: 0
+  - q: 4
+    r: -2
+    tileType: 0
+  - q: 4
+    r: -1
+    tileType: 0
+  - q: 4
+    r: 0
+    tileType: 0
+  - q: 4
+    r: 1
+    tileType: 0
+  - q: 5
+    r: -5
+    tileType: 0
+  - q: 5
+    r: -4
+    tileType: 0
+  - q: 5
+    r: -3
+    tileType: 0
+  - q: 5
+    r: -2
+    tileType: 0
+  - q: 5
+    r: -1
+    tileType: 0
+  - q: 5
+    r: 0
     tileType: 0
   bridges:
   - q1: 0
-    r1: 0
+    r1: 3
     q2: 1
-    r2: 0
+    r2: 3
     edgeType: 2
-  - q1: 1
-    r1: 0
-    q2: 2
-    r2: 0
-    edgeType: 1
-  - q1: 2
-    r1: 0
-    q2: 3
-    r2: 0
-    edgeType: 3
-  - q1: 3
-    r1: 0
-    q2: 4
-    r2: 0
-    edgeType: 2
-  - q1: 4
-    r1: 0
-    q2: 5
-    r2: 0
+  - q1: 0
+    r1: -5
+    q2: 1
+    r2: -5
     edgeType: 1
   - q1: 0
-    r1: 1
+    r1: 4
     q2: 1
-    r2: 1
+    r2: 4
     edgeType: 3
-  - q1: 1
-    r1: 1
-    q2: 2
-    r2: 1
-    edgeType: 2
-  - q1: 2
-    r1: 1
-    q2: 3
-    r2: 1
-    edgeType: 1
-  - q1: 3
-    r1: 1
-    q2: 4
-    r2: 1
-    edgeType: 3
-  - q1: 4
-    r1: 1
-    q2: 5
-    r2: 1
+  - q1: 0
+    r1: -3
+    q2: 1
+    r2: -4
     edgeType: 2
   - q1: 0
     r1: 2
     q2: 1
+    r2: 1
+    edgeType: 2
+  - q1: 0
+    r1: -4
+    q2: 1
+    r2: -4
+    edgeType: 2
+  - q1: 0
+    r1: -2
+    q2: 1
+    r2: -2
+    edgeType: 2
+  - q1: 0
+    r1: -1
+    q2: 1
+    r2: -2
+    edgeType: 1
+  - q1: 0
+    r1: 2
+    q2: 1
     r2: 2
+    edgeType: 2
+  - q1: 0
+    r1: 5
+    q2: 1
+    r2: 4
+    edgeType: 3
+  - q1: -5
+    r1: 0
+    q2: -5
+    r2: 1
+    edgeType: 4
+  - q1: -5
+    r1: 1
+    q2: -4
+    r2: 0
+    edgeType: 2
+  - q1: -4
+    r1: 0
+    q2: -3
+    r2: -1
+    edgeType: 2
+  - q1: -5
+    r1: 0
+    q2: -4
+    r2: -1
+    edgeType: 4
+  - q1: -4
+    r1: -1
+    q2: -3
+    r2: -2
+    edgeType: 1
+  - q1: -5
+    r1: 1
+    q2: -5
+    r2: 2
+    edgeType: 1
+  - q1: -3
+    r1: -1
+    q2: -2
+    r2: -2
+    edgeType: 1
+  - q1: -2
+    r1: -2
+    q2: -1
+    r2: -3
+    edgeType: 2
+  - q1: -3
+    r1: -2
+    q2: -2
+    r2: -3
+    edgeType: 3
+  - q1: -2
+    r1: -2
+    q2: -1
+    r2: -2
+    edgeType: 2
+  - q1: -1
+    r1: -2
+    q2: -1
+    r2: -1
+    edgeType: 1
+  - q1: -2
+    r1: -1
+    q2: -1
+    r2: -1
+    edgeType: 1
+  - q1: -4
+    r1: 0
+    q2: -4
+    r2: 1
+    edgeType: 2
+  - q1: -4
+    r1: 1
+    q2: -4
+    r2: 2
+    edgeType: 1
+  - q1: -1
+    r1: -4
+    q2: -1
+    r2: -3
+    edgeType: 2
+  - q1: -5
+    r1: 3
+    q2: -4
+    r2: 2
+    edgeType: 3
+  - q1: -1
+    r1: -2
+    q2: 0
+    r2: -3
+    edgeType: 1
+  - q1: -1
+    r1: -4
+    q2: 0
+    r2: -5
+    edgeType: 1
+  - q1: -4
+    r1: 2
+    q2: -3
+    r2: 2
+    edgeType: 2
+  - q1: -4
+    r1: 0
+    q2: -3
+    r2: 0
+    edgeType: 3
+  - q1: -4
+    r1: 1
+    q2: -3
+    r2: 1
+    edgeType: 1
+  - q1: -5
+    r1: 3
+    q2: -4
+    r2: 3
+    edgeType: 1
+  - q1: -1
+    r1: -2
+    q2: 0
+    r2: -2
+    edgeType: 1
+  - q1: -1
+    r1: -4
+    q2: 0
+    r2: -4
+    edgeType: 1
+  - q1: -3
+    r1: 2
+    q2: -2
+    r2: 2
+    edgeType: 2
+  - q1: -3
+    r1: 0
+    q2: -2
+    r2: 0
+    edgeType: 3
+  - q1: -1
+    r1: -1
+    q2: -1
+    r2: 0
+    edgeType: 1
+  - q1: -2
+    r1: 1
+    q2: -2
+    r2: 2
+    edgeType: 1
+  - q1: -2
+    r1: 2
+    q2: -1
+    r2: 2
+    edgeType: 2
+  - q1: 0
+    r1: -2
+    q2: 0
+    r2: -1
+    edgeType: 2
+  - q1: -2
+    r1: 2
+    q2: -2
+    r2: 3
+    edgeType: 1
+  - q1: -4
+    r1: 3
+    q2: -4
+    r2: 4
+    edgeType: 1
+  - q1: -3
+    r1: 4
+    q2: -2
+    r2: 3
+    edgeType: 2
+  - q1: -1
+    r1: 0
+    q2: -1
+    r2: 1
+    edgeType: 2
+  - q1: -2
+    r1: 3
+    q2: -2
+    r2: 4
+    edgeType: 1
+  - q1: -5
+    r1: 4
+    q2: -4
+    r2: 4
+    edgeType: 3
+  - q1: -3
+    r1: 4
+    q2: -3
+    r2: 5
+    edgeType: 2
+  - q1: -2
+    r1: 4
+    q2: -1
+    r2: 4
+    edgeType: 1
+  - q1: -1
+    r1: 1
+    q2: 0
+    r2: 0
+    edgeType: 1
+  - q1: -3
+    r1: 3
+    q2: -2
+    r2: 2
+    edgeType: 2
+  - q1: -1
+    r1: 4
+    q2: 0
+    r2: 4
+    edgeType: 1
+  - q1: -1
+    r1: 4
+    q2: -1
+    r2: 5
+    edgeType: 1
+  - q1: -2
+    r1: 5
+    q2: -1
+    r2: 5
+    edgeType: 2
+  - q1: -5
+    r1: 4
+    q2: -5
+    r2: 5
+    edgeType: 1
+  - q1: -2
+    r1: 3
+    q2: -1
+    r2: 3
+    edgeType: 1
+  - q1: -5
+    r1: 5
+    q2: -4
+    r2: 5
     edgeType: 1
   - q1: 0
     r1: 0
     q2: 0
     r2: 1
     edgeType: 1
-  - q1: 1
+  - q1: 0
+    r1: 4
+    q2: 0
+    r2: 5
+    edgeType: 1
+  - q1: -1
+    r1: 3
+    q2: 0
+    r2: 3
+    edgeType: 2
+  - q1: -1
+    r1: 2
+    q2: 0
+    r2: 2
+    edgeType: 2
+  - q1: -5
     r1: 0
-    q2: 1
+    q2: -4
+    r2: 0
+    edgeType: 4
+  - q1: -5
+    r1: 2
+    q2: -4
+    r2: 2
+    edgeType: 1
+  - q1: -5
+    r1: 4
+    q2: -4
+    r2: 3
+    edgeType: 1
+  - q1: -5
+    r1: 3
+    q2: -5
+    r2: 4
+    edgeType: 2
+  - q1: -5
+    r1: 5
+    q2: -4
+    r2: 4
+    edgeType: 2
+  - q1: -4
+    r1: 3
+    q2: -3
+    r2: 2
+    edgeType: 2
+  - q1: -4
+    r1: 2
+    q2: -4
+    r2: 3
+    edgeType: 1
+  - q1: -4
+    r1: 4
+    q2: -3
+    r2: 3
+    edgeType: 1
+  - q1: -4
+    r1: 4
+    q2: -4
+    r2: 5
+    edgeType: 2
+  - q1: -4
+    r1: 5
+    q2: -3
+    r2: 5
+    edgeType: 1
+  - q1: -4
+    r1: 5
+    q2: -3
+    r2: 4
+    edgeType: 1
+  - q1: -3
+    r1: -2
+    q2: -2
+    r2: -2
+    edgeType: 1
+  - q1: -4
+    r1: -1
+    q2: -3
+    r2: -1
+    edgeType: 2
+  - q1: -3
+    r1: -1
+    q2: -3
+    r2: 0
+    edgeType: 1
+  - q1: -4
+    r1: 1
+    q2: -3
+    r2: 0
+    edgeType: 1
+  - q1: -3
+    r1: 1
+    q2: -2
+    r2: 0
+    edgeType: 2
+  - q1: -4
+    r1: 2
+    q2: -3
+    r2: 1
+    edgeType: 1
+  - q1: -3
+    r1: 2
+    q2: -2
+    r2: 1
+    edgeType: 1
+  - q1: -3
+    r1: 2
+    q2: -3
+    r2: 3
+    edgeType: 1
+  - q1: -3
+    r1: 3
+    q2: -2
+    r2: 3
+    edgeType: 2
+  - q1: -4
+    r1: 3
+    q2: -3
+    r2: 3
+    edgeType: 1
+  - q1: -3
+    r1: 4
+    q2: -2
+    r2: 4
+    edgeType: 1
+  - q1: -4
+    r1: 4
+    q2: -3
+    r2: 4
+    edgeType: 2
+  - q1: -3
+    r1: 5
+    q2: -2
+    r2: 5
+    edgeType: 1
+  - q1: -2
+    r1: -3
+    q2: -1
+    r2: -3
+    edgeType: 1
+  - q1: -2
+    r1: -2
+    q2: -2
+    r2: -1
+    edgeType: 2
+  - q1: -2
+    r1: 0
+    q2: -1
+    r2: 0
+    edgeType: 2
+  - q1: -2
+    r1: -1
+    q2: -2
+    r2: 0
+    edgeType: 2
+  - q1: -2
+    r1: 0
+    q2: -2
+    r2: 1
+    edgeType: 1
+  - q1: -2
+    r1: 2
+    q2: -1
+    r2: 1
+    edgeType: 1
+  - q1: -2
+    r1: 3
+    q2: -1
+    r2: 2
+    edgeType: 2
+  - q1: -2
+    r1: 4
+    q2: -1
+    r2: 3
+    edgeType: 2
+  - q1: -2
+    r1: 4
+    q2: -2
+    r2: 5
+    edgeType: 1
+  - q1: -1
+    r1: -3
+    q2: 0
+    r2: -3
+    edgeType: 1
+  - q1: -1
+    r1: -3
+    q2: -1
+    r2: -2
+    edgeType: 1
+  - q1: -2
+    r1: -1
+    q2: -1
+    r2: -2
+    edgeType: 2
+  - q1: -2
+    r1: 0
+    q2: -1
+    r2: -1
+    edgeType: 3
+  - q1: -1
+    r1: 0
+    q2: 0
+    r2: -1
+    edgeType: 1
+  - q1: -1
+    r1: 1
+    q2: 0
+    r2: 1
+    edgeType: 3
+  - q1: -1
+    r1: 2
+    q2: 0
+    r2: 1
+    edgeType: 1
+  - q1: -1
+    r1: 2
+    q2: -1
+    r2: 3
+    edgeType: 1
+  - q1: -1
+    r1: 3
+    q2: -1
+    r2: 4
+    edgeType: 1
+  - q1: -1
+    r1: 4
+    q2: 0
+    r2: 3
+    edgeType: 2
+  - q1: -2
+    r1: 5
+    q2: -1
+    r2: 4
+    edgeType: 1
+  - q1: -1
+    r1: 5
+    q2: 0
+    r2: 4
+    edgeType: 1
+  - q1: 0
+    r1: -5
+    q2: 0
+    r2: -4
+    edgeType: 1
+  - q1: -1
+    r1: -3
+    q2: 0
+    r2: -4
+    edgeType: 1
+  - q1: 0
+    r1: -4
+    q2: 0
+    r2: -3
+    edgeType: 2
+  - q1: 0
+    r1: -3
+    q2: 0
+    r2: -2
+    edgeType: 1
+  - q1: 0
+    r1: 1
+    q2: 0
+    r2: 2
+    edgeType: 1
+  - q1: 0
+    r1: 2
+    q2: 0
+    r2: 3
+    edgeType: 2
+  - q1: 0
+    r1: 3
+    q2: 0
+    r2: 4
+    edgeType: 1
+  - q1: -1
+    r1: 5
+    q2: 0
+    r2: 5
+    edgeType: 2
+  - q1: 4
+    r1: 0
+    q2: 5
+    r2: 0
+    edgeType: 4
+  - q1: 3
+    r1: 1
+    q2: 4
+    r2: 0
+    edgeType: 1
+  - q1: 2
+    r1: 2
+    q2: 3
     r2: 1
     edgeType: 2
   - q1: 2
+    r1: 2
+    q2: 3
+    r2: 2
+    edgeType: 1
+  - q1: 4
     r1: 0
-    q2: 2
-    r2: 1
+    q2: 5
+    r2: -1
+    edgeType: 1
+  - q1: 4
+    r1: -1
+    q2: 5
+    r2: -1
     edgeType: 1
   - q1: 3
     r1: 0
     q2: 3
     r2: 1
-    edgeType: 3
+    edgeType: 2
   - q1: 4
     r1: 0
     q2: 4
     r2: 1
+    edgeType: 1
+  - q1: 4
+    r1: -2
+    q2: 4
+    r2: -1
+    edgeType: 1
+  - q1: 3
+    r1: -1
+    q2: 3
+    r2: 0
+    edgeType: 1
+  - q1: 4
+    r1: -3
+    q2: 4
+    r2: -2
+    edgeType: 1
+  - q1: 4
+    r1: -1
+    q2: 5
+    r2: -2
+    edgeType: 1
+  - q1: 3
+    r1: -2
+    q2: 4
+    r2: -2
+    edgeType: 1
+  - q1: 2
+    r1: 2
+    q2: 2
+    r2: 3
+    edgeType: 1
+  - q1: 2
+    r1: 0
+    q2: 3
+    r2: -1
+    edgeType: 2
+  - q1: 3
+    r1: -3
+    q2: 4
+    r2: -3
+    edgeType: 2
+  - q1: 2
+    r1: 1
+    q2: 3
+    r2: 0
+    edgeType: 2
+  - q1: 1
+    r1: 0
+    q2: 2
+    r2: 0
+    edgeType: 2
+  - q1: 1
+    r1: 0
+    q2: 2
+    r2: -1
+    edgeType: 1
+  - q1: 1
+    r1: 0
+    q2: 1
+    r2: 1
+    edgeType: 1
+  - q1: 4
+    r1: -3
+    q2: 5
+    r2: -4
+    edgeType: 1
+  - q1: 3
+    r1: -3
+    q2: 4
+    r2: -4
+    edgeType: 1
+  - q1: 2
+    r1: -2
+    q2: 3
+    r2: -2
+    edgeType: 1
+  - q1: 1
+    r1: 3
+    q2: 2
+    r2: 2
+    edgeType: 3
+  - q1: 1
+    r1: 4
+    q2: 2
+    r2: 3
     edgeType: 2
   - q1: 5
-    r1: 0
+    r1: -4
     q2: 5
+    r2: -3
+    edgeType: 1
+  - q1: 1
+    r1: 2
+    q2: 2
     r2: 1
     edgeType: 1
-  - q1: 0
-    r1: 1
-    q2: 0
-    r2: 2
+  - q1: 5
+    r1: -5
+    q2: 5
+    r2: -4
+    edgeType: 1
+  - q1: 1
+    r1: -1
+    q2: 2
+    r2: -1
+    edgeType: 1
+  - q1: 4
+    r1: -5
+    q2: 4
+    r2: -4
     edgeType: 2
   - q1: 1
-    r1: 1
+    r1: -2
+    q2: 2
+    r2: -2
+    edgeType: 1
+  - q1: 1
+    r1: -2
+    q2: 2
+    r2: -3
+    edgeType: 2
+  - q1: 3
+    r1: -5
+    q2: 4
+    r2: -5
+    edgeType: 2
+  - q1: 3
+    r1: -5
+    q2: 3
+    r2: -4
+    edgeType: 2
+  - q1: 2
+    r1: -4
+    q2: 2
+    r2: -3
+    edgeType: 1
+  - q1: 1
+    r1: -3
     q2: 1
-    r2: 2
-    edgeType: 3
-  - q1: 0
-    r1: 1
+    r2: -2
+    edgeType: 1
+  - q1: 1
+    r1: -4
     q2: 1
-    r2: 0
-    edgeType: 3
+    r2: -3
+    edgeType: 1
+  - q1: 2
+    r1: -5
+    q2: 3
+    r2: -5
+    edgeType: 1
+  - q1: 1
+    r1: -5
+    q2: 2
+    r2: -5
+    edgeType: 1
+  - q1: 1
+    r1: -4
+    q2: 2
+    r2: -5
+    edgeType: 2
   - q1: 1
     r1: 1
     q2: 2
-    r2: 0
+    r2: 1
     edgeType: 1
+  - q1: 1
+    r1: 1
+    q2: 1
+    r2: 2
+    edgeType: 1
+  - q1: 2
+    r1: -4
+    q2: 3
+    r2: -5
+    edgeType: 1
+  - q1: 2
+    r1: -3
+    q2: 3
+    r2: -4
+    edgeType: 1
+  - q1: 1
+    r1: -3
+    q2: 2
+    r2: -3
+    edgeType: 1
+  - q1: 2
+    r1: -3
+    q2: 2
+    r2: -2
+    edgeType: 1
+  - q1: 1
+    r1: -1
+    q2: 2
+    r2: -2
+    edgeType: 3
+  - q1: 2
+    r1: -1
+    q2: 3
+    r2: -1
+    edgeType: 1
+  - q1: 2
+    r1: -1
+    q2: 3
+    r2: -2
+    edgeType: 2
+  - q1: 2
+    r1: -2
+    q2: 2
+    r2: -1
+    edgeType: 3
   - q1: 2
     r1: 1
     q2: 3
-    r2: 0
+    r2: 1
+    edgeType: 1
+  - q1: 2
+    r1: 0
+    q2: 2
+    r2: 1
+    edgeType: 1
+  - q1: 2
+    r1: 1
+    q2: 2
+    r2: 2
+    edgeType: 1
+  - q1: 2
+    r1: 3
+    q2: 3
+    r2: 2
+    edgeType: 2
+  - q1: 1
+    r1: 3
+    q2: 2
+    r2: 3
+    edgeType: 2
+  - q1: 3
+    r1: -4
+    q2: 4
+    r2: -4
+    edgeType: 2
+  - q1: 3
+    r1: -4
+    q2: 3
+    r2: -3
+    edgeType: 3
+  - q1: 2
+    r1: -2
+    q2: 3
+    r2: -3
+    edgeType: 2
+  - q1: 3
+    r1: -2
+    q2: 4
+    r2: -3
+    edgeType: 2
+  - q1: 3
+    r1: -3
+    q2: 3
+    r2: -2
+    edgeType: 2
+  - q1: 3
+    r1: -2
+    q2: 3
+    r2: -1
     edgeType: 2
   - q1: 3
     r1: 1
+    q2: 3
+    r2: 2
+    edgeType: 1
+  - q1: 3
+    r1: -4
     q2: 4
-    r2: 0
+    r2: -5
+    edgeType: 1
+  - q1: 4
+    r1: -4
+    q2: 5
+    r2: -4
+    edgeType: 2
+  - q1: 4
+    r1: -3
+    q2: 5
+    r2: -3
+    edgeType: 1
+  - q1: 4
+    r1: -4
+    q2: 4
+    r2: -3
     edgeType: 1
   - q1: 4
     r1: 1
     q2: 5
     r2: 0
-    edgeType: 3
-  - q1: 0
-    r1: 2
-    q2: 1
-    r2: 1
+    edgeType: 4
+  - q1: 4
+    r1: -5
+    q2: 5
+    r2: -5
+    edgeType: 2
+  - q1: 5
+    r1: -3
+    q2: 5
+    r2: -2
+    edgeType: 2
+  - q1: 5
+    r1: -2
+    q2: 5
+    r2: -1
     edgeType: 1
-  sourceTile: {x: 0, y: 0}
-  destinationTile: {x: 5, y: 1}
+  - q1: 5
+    r1: -1
+    q2: 5
+    r2: 0
+    edgeType: 4
+  sourceTile: {x: -5, y: 0}
+  destinationTile: {x: 5, y: 0}

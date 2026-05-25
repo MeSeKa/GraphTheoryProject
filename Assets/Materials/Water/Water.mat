@@ -51,12 +51,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _GradientScale: 5
+    - _GradientScale: 3
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _RippleDensity: 25
+    - _RippleDensity: 35
     - _RippleSpeed: 1
-    - _Slimmness: 5
+    - _Slimmness: 3
     - _WaveSpeed: 0
     m_Colors:
     - _BaseColor: {r: 0.070754685, g: 0.5787164, b: 1, a: 0}

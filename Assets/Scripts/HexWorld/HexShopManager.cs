@@ -1,3 +1,4 @@
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -79,10 +80,15 @@ public class HexShopManager : MonoBehaviour
     private void BuyTool(ToolType tool)
     {
         int price = PriceOf(tool);
-        if (_gold < price) return;
+        if (_gold < price)
+        {
+            AudioManager.Instance?.PlayBuyFail();
+            return;
+        }
 
         _gold -= price;
         toolManager.AddTool(tool);
+        AudioManager.Instance?.PlayBuySuccess();
         RefreshGoldUI();
         RefreshBuyButtons();
     }
@@ -91,9 +97,14 @@ public class HexShopManager : MonoBehaviour
     {
         RefreshBuyButtons();
         shopPanel?.SetActive(true);
+        AudioManager.Instance?.PlayShopOpen();
     }
 
-    public void CloseShop() => shopPanel?.SetActive(false);
+    public void CloseShop()
+    {
+        shopPanel?.SetActive(false);
+        AudioManager.Instance?.PlayShopClose();
+    }
 
     // ── Helpers ──
 
@@ -111,7 +122,9 @@ public class HexShopManager : MonoBehaviour
 
     private void RefreshGoldUI()
     {
-        if (goldText) goldText.text = $"{_gold}g";
+        if (!goldText) return;
+        goldText.text = $"{_gold}g";
+        goldText.transform.DOPunchScale(Vector3.one * 0.25f, 0.25f, 2, 0.5f);
     }
 
     private void RefreshBuyButtons()

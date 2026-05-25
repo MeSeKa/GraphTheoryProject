@@ -90,6 +90,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GrassHex Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 5501944105956143026, guid: a8548d292f9813840b398e11b7415a33, type: 3}
+      propertyPath: sr
+      value: 
+      objectReference: {fileID: 5577335983106999031}
     - target: {fileID: 6822185926677047066, guid: a8548d292f9813840b398e11b7415a33, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7
@@ -142,5 +146,10 @@ PrefabInstance:
 --- !u!4 &2369561481277019844 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6822185926677047066, guid: a8548d292f9813840b398e11b7415a33, type: 3}
+  m_PrefabInstance: {fileID: 9101522408933044702}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &5577335983106999031 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 3686680004448416553, guid: a8548d292f9813840b398e11b7415a33, type: 3}
   m_PrefabInstance: {fileID: 9101522408933044702}
   m_PrefabAsset: {fileID: 0}

@@ -47,6 +47,9 @@ public class HexGameManager : MonoBehaviour
     private List<HexBridge> _bridges = new();
     private bool             _gameActive;
 
+    private HexBridge _hoveredBridge;
+    private HexTile   _hoveredTile;
+
     private void Start()
     {
         if (nextLevelButton)  nextLevelButton.onClick.AddListener(LoadNextLevel);
@@ -55,6 +58,8 @@ public class HexGameManager : MonoBehaviour
 
         winPanel?.SetActive(false);
         losePanel?.SetActive(false);
+
+        toolManager.OnToolChanged += _ => RefreshIndicators();
 
         if (levels != null && levels.Length > 0)
             LoadLevel(startLevelIndex);
@@ -65,21 +70,93 @@ public class HexGameManager : MonoBehaviour
         if (!_gameActive) return;
 
         var mouse = Mouse.current;
-        if (mouse == null || !mouse.leftButton.wasPressedThisFrame) return;
+        if (mouse == null) return;
 
-        Ray ray = Camera.main.ScreenPointToRay(mouse.position.ReadValue());
-        if (!Physics.Raycast(ray, out RaycastHit hit)) return;
+        Ray ray  = Camera.main.ScreenPointToRay(mouse.position.ReadValue());
+        bool hit = Physics.Raycast(ray, out RaycastHit hitInfo);
+
+        UpdateHover(hit ? hitInfo.collider : null);
+
+        if (!mouse.leftButton.wasPressedThisFrame || !hit) return;
 
         if (toolManager.ActiveTool == ToolType.Bomb)
         {
-            HexTile tile = hit.collider.GetComponentInParent<HexTile>();
+            HexTile tile = hitInfo.collider.GetComponentInParent<HexTile>();
             if (tile != null) HandleTileClick(tile);
         }
         else
         {
-            HexBridge bridge = hit.collider.GetComponentInParent<HexBridge>();
+            HexBridge bridge = hitInfo.collider.GetComponentInParent<HexBridge>();
             if (bridge != null) HandleBridgeClick(bridge);
         }
+    }
+
+    private void UpdateHover(Collider hitCollider)
+    {
+        bool isBomb = toolManager.ActiveTool == ToolType.Bomb;
+
+        HexBridge newBridge = null;
+        HexTile   newTile   = null;
+
+        if (hitCollider != null)
+        {
+            if (isBomb) newTile   = hitCollider.GetComponentInParent<HexTile>();
+            else        newBridge = hitCollider.GetComponentInParent<HexBridge>();
+        }
+
+        if (newBridge != _hoveredBridge)
+        {
+            // Unity'de destroyed obje için ?. çalışmaz, explicit null check kullan
+            if (_hoveredBridge)
+                _hoveredBridge.GetComponent<HexInteractIndicator>()?.SetHover(false);
+            _hoveredBridge = newBridge;
+            if (_hoveredBridge)
+                _hoveredBridge.GetComponent<HexInteractIndicator>()?.SetHover(true);
+        }
+
+        if (newTile != _hoveredTile)
+        {
+            if (_hoveredTile)
+                _hoveredTile.GetComponent<HexInteractIndicator>()?.SetHover(false);
+            _hoveredTile = newTile;
+            if (_hoveredTile &&
+                _hoveredTile != levelLoader.SourceTile &&
+                _hoveredTile != levelLoader.DestinationTile)
+                _hoveredTile.GetComponent<HexInteractIndicator>()?.SetHover(true);
+        }
+    }
+
+    private void RefreshIndicators()
+    {
+        bool isBomb = toolManager.ActiveTool == ToolType.Bomb;
+
+        foreach (var bridge in _bridges)
+        {
+            if (!bridge) continue; // yıkılmış bridge'i atla
+            var ind = bridge.GetComponent<HexInteractIndicator>();
+            if (ind == null) continue;
+            ind.SetVisible(!isBomb && !bridge.isUnbreakable && toolManager.CanCut(bridge.edgeType));
+        }
+
+        foreach (var tile in _tiles)
+        {
+            if (!tile) continue;
+            var ind = tile.GetComponent<HexInteractIndicator>();
+            if (ind == null) continue;
+            bool canBomb = isBomb && tile != levelLoader.SourceTile && tile != levelLoader.DestinationTile;
+            ind.SetVisible(canBomb);
+        }
+
+        _hoveredBridge = null;
+        _hoveredTile   = null;
+    }
+
+    private void HideAllIndicators()
+    {
+        foreach (var b in _bridges) { if (b) b.GetComponent<HexInteractIndicator>()?.SetVisible(false); }
+        foreach (var t in _tiles)   { if (t) t.GetComponent<HexInteractIndicator>()?.SetVisible(false); }
+        _hoveredBridge = null;
+        _hoveredTile   = null;
     }
 
     // ── Level Loading ──
@@ -108,6 +185,7 @@ public class HexGameManager : MonoBehaviour
         if (levelNameText) levelNameText.text = $"Level {data.levelNumber}: {data.levelName}";
         UpdateCutsUI();
         SetStatus("Cut the bridges to save the sheep!");
+        RefreshIndicators();
     }
 
     // ── Click Handling ──
@@ -136,6 +214,14 @@ public class HexGameManager : MonoBehaviour
         CheckEndCondition();
     }
 
+    private void ShowPanelAnimated(GameObject panel)
+    {
+        if (panel == null) return;
+        panel.SetActive(true);
+        panel.transform.localScale = Vector3.zero;
+        panel.transform.DOScale(1f, 0.5f).SetEase(Ease.OutElastic);
+    }
+
     private void HandleTileClick(HexTile tile)
     {
         if (tile == levelLoader.SourceTile || tile == levelLoader.DestinationTile)
@@ -159,6 +245,10 @@ public class HexGameManager : MonoBehaviour
 
     private void BombTile(HexTile tile)
     {
+        AudioManager.Instance?.PlayBombExplode();
+        HexFX.Instance?.SpawnBombExplode(tile.transform.position);
+        HexFX.Instance?.SpawnDestroyPoof(tile.transform.position);
+
         var bridges = new List<HexBridge>(tile.bridges);
         foreach (var bridge in bridges)
         {
@@ -168,11 +258,13 @@ public class HexGameManager : MonoBehaviour
                 bridge.GetOtherTile(tile)?.bridges.Remove(bridge);
                 continue;
             }
+            _bridges.Remove(bridge);
             bridge.tileA?.bridges.Remove(bridge);
             bridge.tileB?.bridges.Remove(bridge);
             bridge.AnimateDestroyed(destroyedBridgeMaterial);
             StartCoroutine(RemoveAfterDelay(bridge.gameObject, 0.5f));
         }
+        _tiles.Remove(tile);
         StartCoroutine(RemoveAfterDelay(tile.gameObject, 0.5f));
     }
 
@@ -186,15 +278,23 @@ public class HexGameManager : MonoBehaviour
 
     private void DestroyBridge(HexBridge bridge)
     {
+        if (_hoveredBridge == bridge) _hoveredBridge = null;
+        _bridges.Remove(bridge);
         bridge.tileA?.bridges.Remove(bridge);
         bridge.tileB?.bridges.Remove(bridge);
         bridge.AnimateDestroyed(destroyedBridgeMaterial);
+        AudioManager.Instance?.PlayBridgeDestroy(bridge.edgeType);
+        HexFX.Instance?.SpawnBridgeDestroy(bridge.edgeType, bridge.transform.position);
+        HexFX.Instance?.SpawnDestroyPoof(bridge.transform.position);
         StartCoroutine(RemoveAfterDelay(bridge.gameObject, 0.5f));
     }
 
     private IEnumerator FlashError(HexBridge bridge)
     {
         bridge.SetMaterial(errorBridgeMaterial);
+        bridge.AnimateError();
+        AudioManager.Instance?.PlayError();
+        HexFX.Instance?.SpawnError(bridge.transform.position);
         yield return new WaitForSeconds(0.4f);
         if (bridge != null) bridge.RestoreTypeMaterial();
     }
@@ -209,16 +309,31 @@ public class HexGameManager : MonoBehaviour
 
     private void OnWin()
     {
+        HideAllIndicators();
         _gameActive = false;
         int stars = CalcStars();
         SetStatus($"You saved the sheep! Cuts used: {_cutsUsed}");
+        AudioManager.Instance?.PlayWin();
+        StartCoroutine(SpawnWinFireworks());
+
         bool hasNext = _currentLevelIndex + 1 < levels.Length;
         DOVirtual.DelayedCall(1f, () =>
         {
-            winPanel?.SetActive(true);
+            ShowPanelAnimated(winPanel);
             nextLevelButton?.gameObject.SetActive(hasNext);
             if (starText) starText.text = new string('*', stars);  // UI tarafı sprite'a çevirir
         });
+    }
+
+    private IEnumerator SpawnWinFireworks()
+    {
+        Vector3 center = _tiles.Count > 0 ? _tiles[_tiles.Count / 2].transform.position : Vector3.zero;
+        for (int i = 0; i < 6; i++)
+        {
+            Vector3 offset = new Vector3(Random.Range(-4f, 4f), 1f, Random.Range(-4f, 4f));
+            HexFX.Instance?.SpawnWin(center + offset);
+            yield return new WaitForSeconds(0.3f);
+        }
     }
 
     private int CalcStars()
@@ -232,9 +347,12 @@ public class HexGameManager : MonoBehaviour
 
     private void OnLose()
     {
+        HideAllIndicators();
         _gameActive = false;
-        losePanel?.SetActive(true);
         SetStatus("No tools left — the wolf crosses!");
+        AudioManager.Instance?.PlayLose();
+        HexFX.Instance?.SpawnLose(levelLoader.DestinationTile?.transform.position ?? Vector3.zero);
+        DOVirtual.DelayedCall(0.5f, () => ShowPanelAnimated(losePanel));
     }
 
     private void LoadNextLevel() => LoadLevel(_currentLevelIndex + 1);

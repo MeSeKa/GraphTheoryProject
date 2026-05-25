@@ -1,3 +1,4 @@
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,6 +27,8 @@ public class HexToolManager : MonoBehaviour
     private int _bomb;
 
     public ToolType ActiveTool { get; private set; } = ToolType.Axe;
+
+    public event System.Action<ToolType> OnToolChanged;
 
     private void Start()
     {
@@ -91,12 +94,14 @@ public class HexToolManager : MonoBehaviour
         if (Remaining(tool) <= 0) return;
         ActiveTool = tool;
         UpdateHighlights();
+        AudioManager.Instance?.PlayToolSelect();
+        OnToolChanged?.Invoke(tool);
     }
 
     private void AutoSelectFirst()
     {
         foreach (ToolType t in new[] { ToolType.Axe, ToolType.Pickaxe, ToolType.IronShears, ToolType.Bomb })
-            if (Remaining(t) > 0) { ActiveTool = t; UpdateHighlights(); return; }
+            if (Remaining(t) > 0) { ActiveTool = t; UpdateHighlights(); OnToolChanged?.Invoke(t); return; }
     }
 
     private int Remaining(ToolType t) => t switch
@@ -154,5 +159,7 @@ public class HexToolManager : MonoBehaviour
             img.color = selected ? selectedColor : normalColor;
         var sel = btn.transform.Find("Selected");
         if (sel != null) sel.gameObject.SetActive(selected);
+        if (selected)
+            btn.transform.DOPunchScale(Vector3.one * 0.15f, 0.2f, 2, 0.5f);
     }
 }

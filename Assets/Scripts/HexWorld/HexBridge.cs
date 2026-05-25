@@ -52,6 +52,12 @@ public class HexBridge : MonoBehaviour
         if (bridgeRenderer == null) return;
         Color target = destroyedMat.GetColor("_BaseColor");
         bridgeRenderer.material.DOColor(target, "_BaseColor", AnimDuration);
+        transform.DOPunchScale(Vector3.one * 0.4f, AnimDuration, 3, 0.5f).SetLink(gameObject);
+    }
+
+    public void AnimateError()
+    {
+        transform.DOShakePosition(0.35f, 0.08f, 15, 90, false, true).SetLink(gameObject);
     }
 
     public HexTile GetOtherTile(HexTile from) => from == tileA ? tileB : tileA;

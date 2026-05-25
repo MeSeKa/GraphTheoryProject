@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f909351dbcec5b546865feb6514159d7, type: 3}
   m_Name: Level7
   m_EditorClassIdentifier: Assembly-CSharp::HexLevelData
-  levelName: Narrow Straits
-  levelNumber: 7
+  levelName: Generated Level
+  levelNumber: 1
   tileType: 1
-  axeCount: 1
+  axeCount: 4
   pickaxeCount: 1
-  ironShearsCount: 1
+  ironShearsCount: 0
   bombCount: 0
   startingGold: 500
   axeDiscount: 0
@@ -25,6 +25,60 @@ MonoBehaviour:
   ironShearsDiscount: 0
   bombDiscount: 0
   tiles:
+  - q: -3
+    r: 0
+    tileType: 0
+  - q: -3
+    r: 1
+    tileType: 0
+  - q: -3
+    r: 2
+    tileType: 0
+  - q: -3
+    r: 3
+    tileType: 0
+  - q: -2
+    r: -1
+    tileType: 0
+  - q: -2
+    r: 0
+    tileType: 0
+  - q: -2
+    r: 1
+    tileType: 0
+  - q: -2
+    r: 2
+    tileType: 0
+  - q: -2
+    r: 3
+    tileType: 0
+  - q: -1
+    r: -2
+    tileType: 0
+  - q: -1
+    r: -1
+    tileType: 0
+  - q: -1
+    r: 0
+    tileType: 0
+  - q: -1
+    r: 1
+    tileType: 0
+  - q: -1
+    r: 2
+    tileType: 0
+  - q: -1
+    r: 3
+    tileType: 0
+  - q: 0
+    r: -3
+    tileType: 0
+  - q: 0
+    r: -2
+    tileType: 0
+  - q: 0
+    r: -1
+    tileType: 0
   - q: 0
     r: 0
     tileType: 0
@@ -33,6 +87,18 @@ MonoBehaviour:
     tileType: 0
   - q: 0
     r: 2
+    tileType: 0
+  - q: 0
+    r: 3
+    tileType: 0
+  - q: 1
+    r: -3
+    tileType: 0
+  - q: 1
+    r: -2
+    tileType: 0
+  - q: 1
+    r: -1
     tileType: 0
   - q: 1
     r: 0
@@ -44,137 +110,372 @@ MonoBehaviour:
     r: 2
     tileType: 0
   - q: 2
+    r: -3
+    tileType: 0
+  - q: 2
+    r: -2
+    tileType: 0
+  - q: 2
+    r: -1
+    tileType: 0
+  - q: 2
     r: 0
     tileType: 0
   - q: 2
     r: 1
     tileType: 0
-  - q: 2
-    r: 2
+  - q: 3
+    r: -3
+    tileType: 0
+  - q: 3
+    r: -2
+    tileType: 0
+  - q: 3
+    r: -1
     tileType: 0
   - q: 3
     r: 0
-    tileType: 0
-  - q: 3
-    r: 1
-    tileType: 0
-  - q: 3
-    r: 2
-    tileType: 0
-  - q: 4
-    r: 0
-    tileType: 0
-  - q: 4
-    r: 1
-    tileType: 0
-  - q: 4
-    r: 2
     tileType: 0
   bridges:
   - q1: 0
-    r1: 0
-    q2: 0
-    r2: 1
-    edgeType: 1
-  - q1: 0
-    r1: 1
-    q2: 0
-    r2: 2
-    edgeType: 1
-  - q1: 0
-    r1: 0
+    r1: -1
     q2: 1
-    r2: 0
-    edgeType: 1
-  - q1: 0
-    r1: 1
-    q2: 1
-    r2: 0
-    edgeType: 1
-  - q1: 0
-    r1: 1
-    q2: 1
-    r2: 1
+    r2: -1
     edgeType: 1
   - q1: 0
     r1: 2
     q2: 1
-    r2: 2
-    edgeType: 1
-  - q1: 1
-    r1: 0
-    q2: 1
     r2: 1
     edgeType: 1
-  - q1: 1
+  - q1: 0
+    r1: -2
+    q2: 1
+    r2: -3
+    edgeType: 1
+  - q1: 0
     r1: 1
     q2: 1
-    r2: 2
-    edgeType: 1
-  - q1: 1
+    r2: 0
+    edgeType: 2
+  - q1: 0
     r1: 0
-    q2: 2
+    q2: 1
     r2: 0
     edgeType: 1
-  - q1: 1
-    r1: 1
-    q2: 2
+  - q1: -3
+    r1: 0
+    q2: -2
+    r2: -1
+    edgeType: 1
+  - q1: -2
+    r1: -1
+    q2: -1
+    r2: -2
+    edgeType: 1
+  - q1: -2
+    r1: -1
+    q2: -2
+    r2: 0
+    edgeType: 1
+  - q1: -2
+    r1: -1
+    q2: -1
+    r2: -1
+    edgeType: 1
+  - q1: -3
+    r1: 0
+    q2: -3
     r2: 1
+    edgeType: 1
+  - q1: -3
+    r1: 1
+    q2: -3
+    r2: 2
+    edgeType: 1
+  - q1: -1
+    r1: -2
+    q2: 0
+    r2: -2
+    edgeType: 1
+  - q1: -1
+    r1: -2
+    q2: 0
+    r2: -3
+    edgeType: 1
+  - q1: -3
+    r1: 2
+    q2: -3
+    r2: 3
+    edgeType: 2
+  - q1: -2
+    r1: 0
+    q2: -2
+    r2: 1
+    edgeType: 1
+  - q1: -2
+    r1: 1
+    q2: -2
+    r2: 2
     edgeType: 3
-  - q1: 2
-    r1: 0
-    q2: 2
+  - q1: -2
+    r1: 2
+    q2: -1
     r2: 1
     edgeType: 1
-  - q1: 2
-    r1: 1
-    q2: 2
-    r2: 2
+  - q1: -1
+    r1: -1
+    q2: 0
+    r2: -1
     edgeType: 1
-  - q1: 2
+  - q1: -1
     r1: 0
-    q2: 3
-    r2: 0
+    q2: -1
+    r2: 1
     edgeType: 1
-  - q1: 2
+  - q1: -1
     r1: 1
-    q2: 3
+    q2: 0
+    r2: 0
+    edgeType: 2
+  - q1: 0
+    r1: 0
+    q2: 0
     r2: 1
     edgeType: 2
-  - q1: 3
-    r1: 0
-    q2: 3
-    r2: 1
+  - q1: -2
+    r1: 2
+    q2: -2
+    r2: 3
     edgeType: 1
-  - q1: 3
-    r1: 1
-    q2: 3
+  - q1: -2
+    r1: 2
+    q2: -1
     r2: 2
     edgeType: 1
-  - q1: 3
-    r1: 0
-    q2: 4
+  - q1: 0
+    r1: 1
+    q2: 0
+    r2: 2
+    edgeType: 2
+  - q1: 0
+    r1: 2
+    q2: 0
+    r2: 3
+    edgeType: 1
+  - q1: -1
+    r1: 2
+    q2: -1
+    r2: 3
+    edgeType: 2
+  - q1: -3
+    r1: 1
+    q2: -2
+    r2: 1
+    edgeType: 2
+  - q1: -3
+    r1: 1
+    q2: -2
     r2: 0
     edgeType: 1
-  - q1: 3
-    r1: 1
-    q2: 4
-    r2: 1
+  - q1: -3
+    r1: 3
+    q2: -2
+    r2: 3
     edgeType: 1
-  - q1: 3
-    r1: 2
-    q2: 4
-    r2: 1
-    edgeType: 1
-  - q1: 4
-    r1: 0
-    q2: 4
-    r2: 1
-    edgeType: 1
-  - q1: 4
-    r1: 1
-    q2: 4
+  - q1: -3
+    r1: 3
+    q2: -2
     r2: 2
     edgeType: 1
-  sourceTile: {x: 0, y: 1}
-  destinationTile: {x: 4, y: 1}
+  - q1: -2
+    r1: 1
+    q2: -1
+    r2: 1
+    edgeType: 2
+  - q1: -3
+    r1: 2
+    q2: -2
+    r2: 1
+    edgeType: 1
+  - q1: -2
+    r1: 3
+    q2: -1
+    r2: 2
+    edgeType: 1
+  - q1: -1
+    r1: -2
+    q2: -1
+    r2: -1
+    edgeType: 1
+  - q1: -1
+    r1: -1
+    q2: -1
+    r2: 0
+    edgeType: 1
+  - q1: -1
+    r1: 0
+    q2: 0
+    r2: 0
+    edgeType: 2
+  - q1: -1
+    r1: 1
+    q2: 0
+    r2: 1
+    edgeType: 1
+  - q1: -1
+    r1: 2
+    q2: 0
+    r2: 1
+    edgeType: 1
+  - q1: -1
+    r1: 1
+    q2: -1
+    r2: 2
+    edgeType: 2
+  - q1: -1
+    r1: 3
+    q2: 0
+    r2: 3
+    edgeType: 1
+  - q1: 0
+    r1: -3
+    q2: 0
+    r2: -2
+    edgeType: 1
+  - q1: 0
+    r1: -2
+    q2: 0
+    r2: -1
+    edgeType: 1
+  - q1: -1
+    r1: 3
+    q2: 0
+    r2: 2
+    edgeType: 1
+  - q1: 2
+    r1: 0
+    q2: 3
+    r2: 0
+    edgeType: 1
+  - q1: 2
+    r1: -1
+    q2: 2
+    r2: 0
+    edgeType: 1
+  - q1: 1
+    r1: 1
+    q2: 2
+    r2: 0
+    edgeType: 2
+  - q1: 1
+    r1: 0
+    q2: 2
+    r2: 0
+    edgeType: 1
+  - q1: 1
+    r1: -1
+    q2: 1
+    r2: 0
+    edgeType: 1
+  - q1: 2
+    r1: -1
+    q2: 3
+    r2: -2
+    edgeType: 1
+  - q1: 2
+    r1: -1
+    q2: 3
+    r2: -1
+    edgeType: 1
+  - q1: 2
+    r1: 0
+    q2: 2
+    r2: 1
+    edgeType: 1
+  - q1: 1
+    r1: -1
+    q2: 2
+    r2: -2
+    edgeType: 1
+  - q1: 2
+    r1: -2
+    q2: 3
+    r2: -3
+    edgeType: 1
+  - q1: 1
+    r1: -2
+    q2: 1
+    r2: -1
+    edgeType: 2
+  - q1: 1
+    r1: -2
+    q2: 2
+    r2: -3
+    edgeType: 2
+  - q1: 1
+    r1: -3
+    q2: 2
+    r2: -3
+    edgeType: 1
+  - q1: 1
+    r1: 2
+    q2: 2
+    r2: 1
+    edgeType: 1
+  - q1: 1
+    r1: -3
+    q2: 1
+    r2: -2
+    edgeType: 1
+  - q1: 1
+    r1: -2
+    q2: 2
+    r2: -2
+    edgeType: 1
+  - q1: 1
+    r1: 0
+    q2: 2
+    r2: -1
+    edgeType: 1
+  - q1: 1
+    r1: 0
+    q2: 1
+    r2: 1
+    edgeType: 1
+  - q1: 1
+    r1: 1
+    q2: 1
+    r2: 2
+    edgeType: 1
+  - q1: 2
+    r1: -3
+    q2: 2
+    r2: -2
+    edgeType: 1
+  - q1: 2
+    r1: -2
+    q2: 2
+    r2: -1
+    edgeType: 1
+  - q1: 1
+    r1: -1
+    q2: 2
+    r2: -1
+    edgeType: 1
+  - q1: 2
+    r1: 1
+    q2: 3
+    r2: 0
+    edgeType: 3
+  - q1: 3
+    r1: -3
+    q2: 3
+    r2: -2
+    edgeType: 1
+  - q1: 3
+    r1: -1
+    q2: 3
+    r2: 0
+    edgeType: 3
+  sourceTile: {x: -3, y: 0}
+  destinationTile: {x: 3, y: 0}
